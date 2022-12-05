@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -8,4 +5,50 @@ generator client {
 datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
+}
+
+model events {
+  id          Int       @id @default(autoincrement())
+  name        String    @db.VarChar(50)
+  start_date  DateTime? @db.Timestamp(0)
+  end_date    DateTime? @db.Timestamp(0)
+  description String?   @db.Text
+  createdby   Int
+  label_id    Int?
+  z_index     Int?      @map("z-index")
+}
+
+model groups {
+  id   Int    @id @default(autoincrement())
+  name String @db.VarChar(50)
+}
+
+model label {
+  id    Int    @id @default(autoincrement())
+  name  String @db.VarChar(50)
+  color String @db.VarChar(50)
+}
+
+model messages {
+  id         Int      @id @default(autoincrement())
+  created_at DateTime @default(now()) @map("created at") @db.Timestamp(0)
+  created_by String   @map("created by") @db.VarChar(50)
+  z_index    Int      @map("z-index")
+  content    String   @db.Text
+}
+
+model roles {
+  id   Int    @id @default(autoincrement())
+  name String @db.VarChar(50)
+}
+
+model users {
+  id       Int     @id @default(autoincrement())
+  username String  @db.VarChar(50)
+  email    String  @db.VarChar(50)
+  password String  @db.VarChar(50)
+  role_id  Int
+  group_id String? @db.Text
+
+  @@unique([email, username], map: "Index 2")
 }
