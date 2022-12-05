@@ -31,8 +31,8 @@ model label {
 
 model messages {
   id         Int      @id @default(autoincrement())
-  created_at DateTime @default(now()) @map("created at") @db.Timestamp(0)
-  created_by String   @map("created by") @db.VarChar(50)
+  created_at DateTime @default(now()) @db.Timestamp(0)
+  created_by String   @db.VarChar(50)
   z_index    Int      @map("z-index")
   content    String   @db.Text
 }
