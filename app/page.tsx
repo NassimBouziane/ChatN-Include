@@ -1,4 +1,5 @@
-import '../styles/globals.css'
+import '../styles/index.css';
+
 export default function Page() {
-  return <h1>Hello, Next.js!</h1>;
+  return <h1 className='text-red-100'>Hello, Next.js!</h1>;
 }
