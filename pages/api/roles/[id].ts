@@ -9,7 +9,7 @@ export default async function handler(req, res){
     const id: number = Number(req.query.id);
     switch(req.method) {
     case 'DELETE':
-        QueryResult = await prisma.messages.delete({
+        QueryResult = await prisma.roles.delete({
             where: {
                 id : id
             },
@@ -18,21 +18,21 @@ export default async function handler(req, res){
     
         break;
     case 'PUT':
-        QueryResult = await prisma.messages.update({
+        QueryResult = await prisma.roles.update({
             where: {
                 id : id
             },
             data :{
-                content: '' // METTRE REQ.BODY ICI
+                name: 'groupe A' // METTRE REQ.BODY ICI
             }
         })
         res.send(QueryResult)
         break;
     case 'GET':
-        QueryResult = await prisma.messages.findUnique({where:{
+        QueryResult = await prisma.roles.findUnique({where:{
             id: id
         }})
-        res.send(QueryResult)   
+        res.send(QueryResult)
     break;
 }
 }
