@@ -2,7 +2,7 @@
   "private": true,
   "scripts": {
     "dev": "concurrently \"next dev --turbo\" \"tailwindcss --input ./styles/input.css --output ./styles/output.css --watch\"",
-    "build": "next build --turbo",
+    "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "type-check": "tsc"
