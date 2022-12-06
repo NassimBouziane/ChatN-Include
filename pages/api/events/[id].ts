@@ -40,6 +40,7 @@ export default async function handler(req, res) {
           id: pid,
         },
       });
+      res.send('Event Deleted');
       break;
     }
     default:
