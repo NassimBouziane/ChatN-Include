@@ -7,10 +7,9 @@ const prisma = new PrismaClient();
 export default async function handler(req, res) {
   switch (req.method) {
     // GET all users
-
     case 'GET': {
-      const users = await prisma.users.findMany();
-      res.json(users);
+      const QueryResult = await prisma.users.findMany();
+      res.json(QueryResult);
       break;
     }
 
@@ -27,7 +26,7 @@ export default async function handler(req, res) {
       try {
         const hash = await bcrypt.hash(data.password, 10);
         console.log(hash);
-        const newUser = await prisma.users.create({
+        const QueryResult = await prisma.users.create({
           data: {
             username: data.username,
             email: data.email,
@@ -36,10 +35,9 @@ export default async function handler(req, res) {
             group_id: data.group_id,
           },
         });
-        res.status(200).json(newUser, { success: true });
+        res.status(200).send(QueryResult);
       } catch (error) {
-        console.error('Request error', error);
-        res.status(500).json({ error: 'Request error', success: false });
+        res.status(500).send({ error: 'Request error', success: false });
       }
       break;
     }
