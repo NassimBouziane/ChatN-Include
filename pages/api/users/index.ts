@@ -1,15 +1,49 @@
-import { NextApiRequest, NextApiResponse } from 'next';
+import { PrismaClient } from '@prisma/client';
 
-const handler = (_req: NextApiRequest, res: NextApiResponse) => {
-  try {
-    if (!Array.isArray(sampleUserData)) {
-      throw new Error('Cannot find user data');
+const bcrypt = require('bcrypt');
+
+const prisma = new PrismaClient();
+
+export default async function handler(req, res) {
+  switch (req.method) {
+    // GET all users
+
+    case 'GET': {
+      const users = await prisma.users.findMany();
+      res.json(users);
+      break;
     }
 
-    res.status(200).json(sampleUserData);
-  } catch (err: any) {
-    res.status(500).json({ statusCode: 500, message: err.message });
-  }
-};
+    // Create new user
 
-export default handler;
+    case 'POST': {
+      const data = {
+        username: req.body.username,
+        email: req.body.email,
+        password: req.body.password,
+        role_id: req.body.role_id,
+        group_id: req.body.group_id,
+      };
+      try {
+        const hash = await bcrypt.hash(data.password, 10);
+        console.log(hash);
+        const newUser = await prisma.users.create({
+          data: {
+            username: data.username,
+            email: data.email,
+            password: `${hash}`,
+            role_id: data.role_id,
+            group_id: data.group_id,
+          },
+        });
+        res.status(200).json(newUser, { success: true });
+      } catch (error) {
+        console.error('Request error', error);
+        res.status(500).json({ error: 'Request error', success: false });
+      }
+      break;
+    }
+    default:
+      break;
+  }
+}
