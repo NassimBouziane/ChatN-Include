@@ -19,6 +19,9 @@ export default async function handler(req, res){
             })
             res.send(QueryResult);
             break;}
+            default: 
+    res.status(403).send();
+    break;
 
     }
 
