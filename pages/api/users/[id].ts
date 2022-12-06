@@ -50,6 +50,7 @@ export default async function handler(req, res) {
       break;
     }
     default:
+      res.status(403).send();
       break;
   }
 }
