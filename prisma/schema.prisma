@@ -14,8 +14,8 @@ model events {
   z_index     Int?    @map("z-index")
   title       String  @db.VarChar(50)
   created_by  Int
-  start_date  Int
-  end_date    Int
+  start_date  BigInt  @default(0)
+  end_date    BigInt  @default(0)
 }
 
 model groups {

@@ -1,6 +1,4 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { ApiError } from 'next/dist/server/api-utils';
-import { sampleUserData } from '../../../utils/sample-data';
 
 const handler = (_req: NextApiRequest, res: NextApiResponse) => {
   try {
