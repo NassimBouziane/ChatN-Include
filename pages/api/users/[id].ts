@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
@@ -8,7 +9,7 @@ export default async function handler(req, res) {
     // Delete user
 
     case 'DELETE': {
-      const deleteUser = await prisma.users.delete({
+      const QueryResult = await prisma.users.delete({
         where: {
           id: Id,
         },
@@ -18,34 +19,30 @@ export default async function handler(req, res) {
     }
 
     // Update user
-
     case 'PUT': {
-      // const { body } = req.body;
-      // console.log(body);
-      const updateUser = await prisma.users.update({
+      const QueryResult = await prisma.users.update({
         where: {
           id: Id,
         },
         data: {
-          username: 'tomaye',
+          username: req.body.username,
         },
       });
-      res.json(updateUser);
+      res.send(QueryResult);
       break;
     }
 
     // Get by ID
-
     case 'GET': {
-      const userId = await prisma.users.findUnique({
+      const QueryResult = await prisma.users.findUnique({
         where: {
           id: Id,
         },
       });
-      if (!userId) {
+      if (!QueryResult) {
         res.status(404).send('User not found');
       } else {
-        res.json(userId);
+        res.send(QueryResult);
       }
       break;
     }
