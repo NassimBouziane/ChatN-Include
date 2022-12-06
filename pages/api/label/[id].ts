@@ -20,7 +20,7 @@ export default async function handler(req, res) {
           id: pid,
         },
         data: {
-          name: req.body.name, // METTRE REQ.BODY ICI
+          name: req.body.name,
           color: req.body.color,
         },
       });

@@ -2,8 +2,6 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-// RAJOUTER UN TYOE A QUERY RESULT
-
 export default async function handler(req, res) {
   switch (req.method) {
     case 'GET': {
@@ -15,7 +13,7 @@ export default async function handler(req, res) {
       const QueryResult = await prisma.groups.create({
         data: {
 
-          name: req.body.name, // mettre reqbdy ici
+          name: req.body.name,
         },
       });
       res.send(QueryResult);
