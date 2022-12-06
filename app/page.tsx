@@ -1,6 +1,8 @@
 import '../styles/output.css';
 import LoginButton from '../compenant/loginButton';
 import LoginPopup from '../compenant/loginPopup';
+import { useState } from 'react';
+import loginButton from '../compenant/loginButton';
 
 export default function Page() {
   return (
@@ -19,7 +21,7 @@ export default function Page() {
       
       <div></div>
       <div></div>
-      <div className='flex justify-center'><LoginPopup />
+      <div className='flex justify-center'><LoginButton/>
      </div>
       </div>
     </div>

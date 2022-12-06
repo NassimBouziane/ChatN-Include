@@ -8,14 +8,14 @@ datasource db {
 }
 
 model events {
-  id          Int       @id @default(autoincrement())
-  name        String    @db.VarChar(50)
-  start_date  DateTime? @db.Timestamp(0)
-  end_date    DateTime? @db.Timestamp(0)
-  description String?   @db.Text
-  createdby   Int
+  id          Int     @id @default(autoincrement())
+  description String? @db.Text
   label_id    Int?
-  z_index     Int?      @map("z-index")
+  z_index     Int?
+  title       String  @db.VarChar(50)
+  created_by  Int
+  start_date  String  @default("0") @db.VarChar(50)
+  end_date    String  @default("0") @db.VarChar(50)
 }
 
 model groups {
@@ -31,10 +31,9 @@ model label {
 
 model messages {
   id         Int      @id @default(autoincrement())
+  content    String   @db.Text
   created_at DateTime @default(now()) @map("created at") @db.Timestamp(0)
   created_by String   @map("created by") @db.VarChar(50)
-  z_index    Int      @map("z-index")
-  content    String   @db.Text
 }
 
 model roles {

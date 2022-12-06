@@ -5,21 +5,21 @@ const prisma = new PrismaClient();
 export default async function handler(req, res) {
   switch (req.method) {
     case 'GET': {
-      const QueryResult = await prisma.users.findMany();
+      const QueryResult = await prisma.label.findMany();
       res.send(QueryResult);
-      break; }
+      break;
+    }
     case 'POST': {
-      const QueryResult = await prisma.users.create({
+      const QueryResult = await prisma.label.create({
         data: {
-          username: req.body.username,
-          email: req.body.email,
-          password: req.body.password,
-          role_id: req.body.role_id,
-          group_id: req.body.group_id,
+          name: req.body.name,
+          color: req.body.color,
         },
       });
       res.send(QueryResult);
-      break; }
+      break;
+    }
+
     default:
       res.status(403).send();
       break;
