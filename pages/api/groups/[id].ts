@@ -22,7 +22,7 @@ export default async function handler(req, res){
                 id : id
             },
             data :{
-                name: 'groupe B' // METTRE REQ.BODY ICI
+                name: req.body.name // METTRE REQ.BODY ICI
             }
         })
         res.send(QueryResult)

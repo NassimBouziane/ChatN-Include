@@ -22,8 +22,8 @@ export default async function handler(req, res){
                 id : id
             },
             data :{
-                name: 'groupe B', // METTRE REQ.BODY ICI
-                color: 'BLUE'
+                name: req.body.name, // METTRE REQ.BODY ICI
+                color: req.body.color
             }
         })
         res.send(QueryResult)

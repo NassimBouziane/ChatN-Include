@@ -12,10 +12,9 @@ export default async function handler(req, res){
             break;}
         case 'POST':{
             const QueryResult = await prisma.messages.create({
-                data:{
-                    created_by:'MONSIEUR PAUL',
-                    z_index: 1,
-                    content:'BLABLA JRDAN T MCHE'
+                data :{
+                    created_by: req.body.created_by,
+                    content: req.body.content
                 }
             })
             res.send(QueryResult);

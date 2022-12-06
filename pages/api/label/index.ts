@@ -15,9 +15,8 @@ export default async function handler(req, res){
         case 'POST':{
             const QueryResult = await prisma.label.create({
                 data:{
-
-                    name: 'GROUPE A',// mettre reqbdy ici
-                    color: 'RED'
+                    name: req.body.name, // METTRE REQ.BODY ICI
+                    color: req.body.color
                 }
             })
             res.send(QueryResult);

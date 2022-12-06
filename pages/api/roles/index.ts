@@ -13,7 +13,7 @@ export default async function handler(req, res){
         case 'POST':{
             const QueryResult = await prisma.roles.create({
                 data:{
-                    name : 'admin' // req body ici
+                    name : req.body.name
                 }
             })
             res.send(QueryResult);

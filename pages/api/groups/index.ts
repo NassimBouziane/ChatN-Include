@@ -16,7 +16,7 @@ export default async function handler(req, res){
             const QueryResult = await prisma.groups.create({
                 data:{
 
-                    name: 'GROUPE A' // mettre reqbdy ici
+                    name: req.body.name // mettre reqbdy ici
                 }
             })
             res.send(QueryResult);
