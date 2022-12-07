@@ -35,6 +35,7 @@ export default async function handler(req, res) {
         });
         res.status(200).send(QueryResult);
       } catch (error) {
+        console.log(error);
         res.status(500).send({ error: 'Request error', success: false });
       }
       break;

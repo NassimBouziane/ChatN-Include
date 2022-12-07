@@ -22,7 +22,7 @@ export default async function handler(req, res) {
           .compare(req.body.password, QueryResult.password)
           .then((valid) => {
             if (!valid) {
-              res.status(404).send('error: email or password incorrect oulll');
+              res.status(404).send('error: email or password incorrect');
             } else {
               const acces = jwt.sign(
                 {
@@ -35,7 +35,6 @@ export default async function handler(req, res) {
                 },
               );
               res.json({ accesToken: acces });
-              sessionStorage.setItem('token', acces);
             }
           });
       } else {

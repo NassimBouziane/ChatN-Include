@@ -9,6 +9,7 @@ const jwt = require('jsonwebtoken');
 export function middleware(request: NextRequest) {
   const Authetificator = sessionStorage.getItem('token');
   if (request.nextUrl.pathname.startsWith('/api/messages') && Authetificator !== undefined) {
+    console.log(Authetificator);  
     try {
       const decoded = jwt.verify(Authetificator, process.env.JWT_SIGN_SECRET);
       console.log(decoded);
