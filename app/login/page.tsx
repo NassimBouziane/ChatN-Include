@@ -1,9 +1,28 @@
 /* eslint-disable import/extensions */
 import Button02 from '../../components/button_02';
+import handler from "../../pages/api/login";
 
-export default function login() {
+async function getData() {
+  const res = await fetch('http://localhost:3000/api/users');
+  // The return value is *not* serialized
+  // You can return Date, Map, Set, etc.
+  console.log(res)
+  // Recommendation: handle errors
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error('Failed to fetch data');
+  }
+
+  return res.json();
+}
+
+  
+export default async function login() {
+
   return (
+    
     <div className="grid grid-rows-5 gap-1">
+      <p>{getData()}</p>
         <div></div>
       <form className="grid grid-rows-4 gap-2">
 
@@ -39,10 +58,11 @@ export default function login() {
               disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none "
               />
           </div>
-      </form>
-      <div className="flex justify-center mt-6">
+      
+      <div  className="flex justify-center mt-6">
           <Button02 title="Connexion" />
       </div>
+      </form>
     </div>
   );
 }
