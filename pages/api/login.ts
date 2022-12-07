@@ -35,6 +35,7 @@ export default async function handler(req, res) {
                 },
               );
               res.json({ accesToken: acces });
+              sessionStorage.setItem('token', acces);
             }
           });
       } else {
