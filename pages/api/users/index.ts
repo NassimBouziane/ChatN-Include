@@ -14,7 +14,6 @@ export default async function handler(req, res) {
     }
 
     // Create new user
-
     case 'POST': {
       const data = {
         username: req.body.username,
@@ -25,7 +24,6 @@ export default async function handler(req, res) {
       };
       try {
         const hash = await bcrypt.hash(data.password, 10);
-        console.log(hash);
         const QueryResult = await prisma.users.create({
           data: {
             username: data.username,
