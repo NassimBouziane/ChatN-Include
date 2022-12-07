@@ -26,6 +26,10 @@ export default async function handler(req, res) {
         },
         data: {
           username: req.body.username,
+          email: req.body.email,
+          password: req.body.password,
+          role_id: req.body.role_id,
+          group_id: req.body.group_id,
         },
       });
       res.send(QueryResult);
