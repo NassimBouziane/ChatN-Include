@@ -1,14 +1,15 @@
-import "../styles/output.css";
-import Button02 from '../components/button_02';
+/* eslint-disable import/extensions */
+import '../styles/output.css';
+import Button02 from '../../components/button_02';
 
 export default function login() {
   return (
     <div className="grid grid-rows-5 gap-1">
         <div></div>
       <form className="grid grid-rows-4 gap-2">
-        
+
           <div>
-              <label for="name" className="flex justify-center mt-2">
+              <label htmlFor="name" className="flex justify-center mt-2">
                 Email :
               </label>
           </div>
@@ -25,7 +26,7 @@ export default function login() {
               />
           </div>
           <div>
-              <label for="name" className="flex justify-center mt-3">
+              <label htmlFor="name" className="flex justify-center mt-3">
                 Mot de passe :
               </label>
           </div>
