@@ -1,8 +1,17 @@
 /* eslint-disable import/extensions */
+
+'use client';
+
 import '../styles/output.css';
+import { useEffect, useState } from 'react';
 import Button01 from '../components/button_01';
 
 export default function Page() {
+  const [link, setLink] = useState('');
+  useEffect(() => {
+    setLink('../login');
+    document.title = 'INCLU\'CHAT';
+  }, []);
   return (
     <div className='bg-white w-full h-screen grid grid-cols-2 gap-1 '>
       <div className='grid grid-rows-3 w-full h-full'>
@@ -19,7 +28,7 @@ export default function Page() {
 
       <div></div>
       <div></div>
-      <div className='flex justify-center'><Button01 direction="../login" title="Connectez-vous"/>
+      <div className='text-center'><Button01 direction={link} title="Connectez-vous"/>
      </div>
       </div>
     </div>
