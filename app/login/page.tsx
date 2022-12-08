@@ -12,7 +12,7 @@ export default function login() {
     sessionStorage.setItem('token', res);
   }
   return (
-    <div className="grid grid-rows-5 gap-1">
+    <div className="grid grid-rows-3 gap-1">
         <div></div>
       <form onSubmit={getData} className="grid grid-rows-4 gap-2">
         <p></p>
