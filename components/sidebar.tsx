@@ -13,6 +13,5 @@ export default function SideBar() {
             <SideBarIcon icon={<FiMail size="28"/>}text='Mail'/>
             <SideBarIcon icon={<BiChat size="28"/>}text='Chat'/>
             <SideBarIcon icon={<IoCalendarNumberOutline size="28"/>}text='Calendar'/>
-
         </div>);
 }
