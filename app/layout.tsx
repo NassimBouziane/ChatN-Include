@@ -1,5 +1,7 @@
+import '../styles/output.css';
+
 export default function Layout({ children }) {
-    return (
+  return (
       <html lang="en">
         <head>
           <title>Next.js</title>
@@ -7,5 +9,5 @@ export default function Layout({ children }) {
         <body>
           {children}
         </body>
-      </html>)
-  }
+      </html>);
+}
