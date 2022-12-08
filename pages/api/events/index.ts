@@ -15,13 +15,11 @@ export default async function handler(req, res) {
       const QueryResult = await prisma.events.create({
         data: {
           title: req.body.title,
-          start_date: req.body.start_date,
-          end_date: req.body.end_date,
-          description: req.body.description,
-          created_by: req.body.created_by,
-          label_id: req.body.label_id,
+          start: req.body.start,
+          end: req.body.end,
+          color: req.body.color,
           z_index: req.body.z_index,
-
+          created_by: req.body.created_by,
         },
       });
       res.send('Event Created');
