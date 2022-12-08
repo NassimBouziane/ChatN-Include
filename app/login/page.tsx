@@ -1,13 +1,15 @@
 "use client";
 /* eslint-disable import/extensions */
 import Button02 from "../../components/button_02";
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
+import { setCookie, getCookie } from "typescript-cookie";
 
 export default function login() {
   const email = useRef(null);
   const password = useRef(null);
 
   async function getData() {
+    console.log('test');
     const res = await fetch("http://localhost:3000/api/login", {
       method: "POST",
       body: JSON.stringify({
@@ -15,8 +17,12 @@ export default function login() {
         password: password.current.value,
       }),
     }).then((res) => res.json());
-    sessionStorage.setItem("token", res);
+    await setCookie("token", res);
+    if(getCookie('token')){
+      document.location = '/messagerie'
+    }
   }
+  useEffect(()=>{window.location.reload},[])
   return (
     <div className="grid grid-rows-3 gap-1">
       <div></div>

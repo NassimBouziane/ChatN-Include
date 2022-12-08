@@ -5,11 +5,11 @@
 import "../styles/output.css";
 import { useEffect, useState } from "react";
 import Button01 from "../components/button_01";
-
+import { getCookie } from "typescript-cookie";
 export default function Page() {
   const [link, setLink] = useState("");
   useEffect(() => {
-    if (sessionStorage.getItem("token")) {
+    if (getCookie("token")) {
       setLink("../messagerie");
     } else {
       setLink("../login");
