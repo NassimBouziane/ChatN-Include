@@ -1,31 +1,21 @@
+'use client'
 /* eslint-disable import/extensions */
-import Button02 from '../../components/button_02';
-import handler from "../../pages/api/login";
+import Button02 from '../../components/button_02';  
+import { useRef } from 'react';
 
-async function getData() {
-  const res = await fetch('http://localhost:3000/api/users');
-  // The return value is *not* serialized
-  // You can return Date, Map, Set, etc.
-  console.log(res)
-  // Recommendation: handle errors
-  if (!res.ok) {
-    // This will activate the closest `error.js` Error Boundary
-    throw new Error('Failed to fetch data');
+export default function login() {
+  const email = useRef(null)
+  const password = useRef(null)
+
+  async function getData() {
+    const res = await fetch('http://localhost:3000/api/login',{method:"POST",body: JSON.stringify({email:email.current.value,password:password.current.value})}).then((res)=> res.json());
+    sessionStorage.setItem('token', res);
   }
-
-  return res.json();
-}
-
-  
-export default async function login() {
-
   return (
-    
     <div className="grid grid-rows-5 gap-1">
-      <p>{getData()}</p>
         <div></div>
-      <form className="grid grid-rows-4 gap-2">
-
+      <form onSubmit={getData} className="grid grid-rows-4 gap-2">
+        <p></p>
           <div>
               <label htmlFor="name" className="flex justify-center mt-2">
                 Email :
@@ -33,6 +23,7 @@ export default async function login() {
           </div>
           <div className="flex justify-center">
               <input
+              ref={email}
                 type="email"
                 id="email"
                 name="email"
@@ -50,6 +41,7 @@ export default async function login() {
           </div>
           <div className="flex justify-center">
               <input
+              ref={password}
                 type="password"
                 id="password"
                 name="password"
