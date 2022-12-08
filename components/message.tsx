@@ -30,7 +30,7 @@ export default function message() {
           </div>
           <div>
             <input
-              className="w-11/12 bg-[#f3f3f3] py-5 px-3 rounded-xl "
+              className="inputSize"
               type="text"
               placeholder="type your message here..."              
             />
