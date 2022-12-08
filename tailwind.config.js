@@ -3,9 +3,12 @@ module.exports = {
   content: [
     './app/**/*.{html,tsx}',
     './pages/**/*.{html,tsx}',
-    './components/**/*.{html,tsx}'],
+    './components/**/*.{html,tsx}',
+
+  ],
   theme: {
     extend: {},
   },
-  plugins: [],
+  plugins: [
+  ],
 }

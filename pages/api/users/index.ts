@@ -14,7 +14,10 @@ export default async function handler(req, res) {
     }
 
     // Create new user
+<<<<<<< HEAD
 
+=======
+>>>>>>> 78ba013b18c8505cbc2507c271cf388354f15bb7
     case 'POST': {
       const data = {
         username: req.body.username,
@@ -25,7 +28,10 @@ export default async function handler(req, res) {
       };
       try {
         const hash = await bcrypt.hash(data.password, 10);
+<<<<<<< HEAD
         console.log(hash);
+=======
+>>>>>>> 78ba013b18c8505cbc2507c271cf388354f15bb7
         const QueryResult = await prisma.users.create({
           data: {
             username: data.username,
@@ -37,6 +43,10 @@ export default async function handler(req, res) {
         });
         res.status(200).send(QueryResult);
       } catch (error) {
+<<<<<<< HEAD
+=======
+        console.log(error);
+>>>>>>> 78ba013b18c8505cbc2507c271cf388354f15bb7
         res.status(500).send({ error: 'Request error', success: false });
       }
       break;
