@@ -1,21 +1,18 @@
-"use client";
-/* eslint-disable import/extensions */
-import Button02 from "../../components/button_02";
-import { useRef } from "react";
+import Button02 from '../../components/button_02';
 
 export default function login() {
   const email = useRef(null);
   const password = useRef(null);
 
   async function getData() {
-    const res = await fetch("http://localhost:3000/api/login", {
-      method: "POST",
+    const res = await fetch('http://localhost:3000/api/login', {
+      method: 'POST',
       body: JSON.stringify({
         email: email.current.value,
         password: password.current.value,
       }),
     }).then((res) => res.json());
-    sessionStorage.setItem("token", res);
+    sessionStorage.setItem('token', res);
   }
   return (
     <div className="grid grid-rows-3 gap-1">
