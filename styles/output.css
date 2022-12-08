@@ -584,6 +584,20 @@ video {
   transition-duration: 100ms;
 }
 
+.inputSize {
+  margin-left: 1.25rem;
+  height: 4rem;
+  width: 95%;
+  align-self: center;
+  border-radius: 0.75rem;
+  --tw-bg-opacity: 1;
+  background-color: rgb(243 243 243 / var(--tw-bg-opacity));
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+}
+
 .fixed {
   position: fixed;
 }
@@ -767,10 +781,6 @@ video {
 
 .grid-rows-4 {
   grid-template-rows: repeat(4, minmax(0, 1fr));
-}
-
-.grid-rows-5 {
-  grid-template-rows: repeat(5, minmax(0, 1fr));
 }
 
 .flex-col {
