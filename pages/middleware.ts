@@ -6,7 +6,7 @@ dotenv.config();
 
 const jwt = require('jsonwebtoken');
 
-export function middleware(request: NextRequest) {
+export default function middleware(request: NextRequest) {
   const Authetificator = sessionStorage.getItem('token');
   if (request.nextUrl.pathname.startsWith('/api/messages') && Authetificator !== undefined) {
     console.log(Authetificator);  
