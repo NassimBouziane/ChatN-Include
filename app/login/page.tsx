@@ -1,12 +1,21 @@
+'use client'
 /* eslint-disable import/extensions */
-import Button02 from '../../components/button_02';
+import Button02 from '../../components/button_02';  
+import { useRef } from 'react';
 
 export default function login() {
-  return (
-    <div className="grid grid-rows-5 gap-1">
-        <div></div>
-      <form className="grid grid-rows-4 gap-2">
+  const email = useRef(null)
+  const password = useRef(null)
 
+  async function getData() {
+    const res = await fetch('http://localhost:3000/api/login',{method:"POST",body: JSON.stringify({email:email.current.value,password:password.current.value})}).then((res)=> res.json());
+    sessionStorage.setItem('token', res);
+  }
+  return (
+    <div className="grid grid-rows-3 gap-1">
+        <div></div>
+      <form onSubmit={getData} className="grid grid-rows-4 gap-2">
+        <p></p>
           <div>
               <label htmlFor="name" className="flex justify-center mt-2">
                 Email :
@@ -14,6 +23,7 @@ export default function login() {
           </div>
           <div className="flex justify-center">
               <input
+              ref={email}
                 type="email"
                 id="email"
                 name="email"
@@ -31,6 +41,7 @@ export default function login() {
           </div>
           <div className="flex justify-center">
               <input
+              ref={password}
                 type="password"
                 id="password"
                 name="password"
@@ -39,10 +50,11 @@ export default function login() {
               disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none "
               />
           </div>
-      </form>
-      <div className="flex justify-center mt-6">
+      
+      <div  className="flex justify-center mt-6">
           <Button02 title="Connexion" />
       </div>
+      </form>
     </div>
   );
 }

@@ -8,3 +8,7 @@ export type User = {
   id: number
   name: string
 };
+export interface Login  {
+  email: string,
+  password : string
+}
