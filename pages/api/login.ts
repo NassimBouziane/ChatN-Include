@@ -1,5 +1,6 @@
 import * as dotenv from 'dotenv';
 import { PrismaClient } from '@prisma/client';
+import {Login} from '../../interfaces/index'
 
 dotenv.config();
 
@@ -16,13 +17,13 @@ export default async function handler(req, res) {
           email: req.body.email,
         },
       });
-      console.log(QueryResult);
+      const body:Login = JSON.parse(req.body)
       if (QueryResult) {
         bcrypt
-          .compare(req.body.password, QueryResult.password)
+          .compare(body.password, QueryResult.password)
           .then((valid) => {
             if (!valid) {
-              res.status(404).send('error: email or password incorrect oulll');
+              res.status(404).send('error: email or password incorrect');
             } else {
               const acces = jwt.sign(
                 {
@@ -34,8 +35,7 @@ export default async function handler(req, res) {
                   expiresIn: '24h',
                 },
               );
-              res.json({ accesToken: acces });
-              sessionStorage.setItem('token', acces);
+              return res.status(200).json(acces);
             }
           });
       } else {
