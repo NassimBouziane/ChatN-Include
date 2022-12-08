@@ -22,20 +22,6 @@ export default class App extends Component {
     ],
   };
 
-  onEventResize = (data) => {
-    const { start, end } = data;
-
-    this.setState((state) => {
-      state.events[0].start = start;
-      state.events[0].end = end;
-      return { events: [...state.events] };
-    });
-  };
-
-  onEventDrop = (data) => {
-    console.log(data);
-  };
-
   render() {
     return (
       <>
@@ -47,13 +33,10 @@ export default class App extends Component {
           <div className="w-3/4 h-full">
             <div className="App">
               <DnDCalendar
-              local = {'fr'}
                 defaultDate={moment().toDate()}
                 defaultView="month"
                 events={this.state.events}
                 localizer={localizer}
-                onEventDrop={this.onEventDrop}
-                onEventResize={this.onEventResize}
                 resizable
               />
             </div>
