@@ -47,6 +47,7 @@ html {
   /* 4 */
   font-feature-settings: normal;
   /* 5 */
+  overflow-y: hidden;
 }
 
 /*
