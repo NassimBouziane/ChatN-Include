@@ -8,11 +8,9 @@ export default function SideBar() {
   return (
         <div className="fixed top-0 left-0 h-screen w-16 m-0
                         flex flex-col
-                     bg-white text-white shadow-lg">
-
+                      bg-[#f3f3f3] text-white shadow-lg">
             <SideBarIcon icon={<FiMail size="28"/>}text='Mail'/>
             <SideBarIcon icon={<BiChat size="28"/>}text='Chat'/>
             <SideBarIcon icon={<IoCalendarNumberOutline size="28"/>}text='Calendar'/>
-
         </div>);
 }
