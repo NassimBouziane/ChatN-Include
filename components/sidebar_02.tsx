@@ -1,7 +1,6 @@
 import '../styles/input.css';
 
 import { FiMail } from 'react-icons/fi';
-import SideBarIcon from './sidebar_Icon';
 
 export default function SideBar02() {
   return (

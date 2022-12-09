@@ -1,7 +1,6 @@
 import "../styles/output.css";
 import { RiSendPlaneLine } from "react-icons/ri";
 import { AiOutlinePaperClip } from "react-icons/ai";
-import EmojiPicker from "emoji-picker-react";
 import InputEmoji from "react-input-emoji";
 
 export default function message() {
@@ -42,9 +41,7 @@ export default function message() {
             onChange="setText"
             cleanOnEnter
             onEnter="handleOnEnter"
-            placeholder="Type a message"
-            size={90}
-          />
+            placeholder="Type a message"/>
           <div className="absolute top-24 right-16 hidden group-after:flex  event"></div>
 
           <div className="w-fit h-fit gap-3 grid grid-cols-2">

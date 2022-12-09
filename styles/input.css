@@ -34,6 +34,13 @@
         text-xs font-bold
         transition-all duration-100 scale-0 origin-left
     }
+    .Drop-Button {
+        @apply absolute w-auto p-2 m-2 min-w-max left-14
+        rounded-md shadow-md
+        text-white bg-gradient-to-r from-[#FD9262] via-[#e31988] to-[#A371D0]
+        text-xs font-bold
+        transition-all duration-100 scale-0 origin-left
+    }
     .inputSize{
         @apply bg-[#f3f3f3] 
         py-3 px-3 mt-[3%] rounded-xl
