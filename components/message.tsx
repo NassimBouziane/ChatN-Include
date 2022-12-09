@@ -1,6 +1,6 @@
-import "../styles/output.css";
-import { RiSendPlaneLine } from "react-icons/ri";
-import { AiOutlinePaperClip } from "react-icons/ai";
+import '../styles/output.css';
+import { RiSendPlaneLine } from 'react-icons/ri';
+import { AiOutlinePaperClip } from 'react-icons/ai';
 
 export default function message() {
   return (
@@ -28,12 +28,12 @@ export default function message() {
             doloribus laborum illo rem enim dolor odio saepe, consequatur quas?
           </div>
         </div>
-        
+
       </div>
       <div></div>
       <div></div>
       <div className="inputSize">
-          <input 
+          <input
             className="bg-[#f3f3f3] focus:outline-none mb-3 "
             size={90}
             type="text"
