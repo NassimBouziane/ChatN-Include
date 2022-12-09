@@ -60,3 +60,8 @@
     margin-top:7%;
     color: #9b60cf;
 }
+
+.fc-timegrid-event .fc-event-main {
+    padding: 1px 1px 0;
+    overflow: hidden;
+}

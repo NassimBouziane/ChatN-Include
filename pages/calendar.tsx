@@ -7,8 +7,20 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 function renderEventContent(eventInfo) {
   return (
     <>
-      <b>{eventInfo.timeText}</b><br></br>
+      <b>{eventInfo.timeText}</b>
+      <br></br>
       <i>{eventInfo.event.title}</i>
+      <br></br>
+      <p>{eventInfo.event.extendedProps.content}</p>
+    </>
+  );
+}
+
+function renderEventOnClick(eventInfo) {
+  // console.log(eventInfo.event.extendedProps.content);
+  return (
+    <>
+    <p>{eventInfo.event.extendedProps.content}</p>
     </>
   );
 }
@@ -46,9 +58,14 @@ export default class App extends Component {
                 plugins={[timeGridPlugin]}
                 nowIndicator={true}
                 initialView="timeGridWeek"
+                headerToolbar={{
+                  start: 'today',
+                  center: 'title',
+                  end: 'prev,next',
+                }}
                 events={this.state.events}
                 eventContent={renderEventContent}
-
+                eventClick={renderEventOnClick}
               />
             </div>
           </div>
@@ -57,6 +74,3 @@ export default class App extends Component {
     );
   }
 }
-/** {
-          title: 'Titleeee 1', start: '2022-12-08T10:30:00', end: '2022-12-08T11:30:00', color: 'red',
-        }, */

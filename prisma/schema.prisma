@@ -8,11 +8,12 @@ datasource db {
 }
 
 model events {
-  id         Int    @id @default(autoincrement())
-  title      String @db.VarChar(50)
-  start      String @default("0") @db.VarChar(50)
-  end        String @default("0") @db.VarChar(50)
-  color      String @db.VarChar(50)
+  id         Int     @id @default(autoincrement())
+  title      String  @db.VarChar(50)
+  start      String  @default("0") @db.VarChar(50)
+  end        String  @default("0") @db.VarChar(50)
+  color      String  @db.VarChar(50)
+  content    String? @db.Text
   z_index    Int?
   created_by Int
 }

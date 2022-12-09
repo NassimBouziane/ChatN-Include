@@ -26,6 +26,7 @@ export default async function handler(req, res) {
           start: req.body.start,
           end: req.body.end,
           color: req.body.color,
+          content: req.body.content
           z_index: req.body.z_index,
           created_by: req.body.created_by,
         },
