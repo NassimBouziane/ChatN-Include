@@ -1,5 +1,5 @@
-import "../styles/output.css";
-import Button02 from "../components/button_02";
+import '../styles/output.css';
+import Button02 from '../components/button_02';
 
 export default function login() {
   return (

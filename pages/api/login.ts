@@ -1,6 +1,6 @@
 import * as dotenv from 'dotenv';
 import { PrismaClient } from '@prisma/client';
-import {Login} from '../../interfaces/index'
+import { Login } from '../../interfaces/index';
 
 dotenv.config();
 
@@ -17,7 +17,7 @@ export default async function handler(req, res) {
           email: req.body.email,
         },
       });
-      const body:Login = JSON.parse(req.body)
+      const body:Login = JSON.parse(req.body);
       if (QueryResult) {
         bcrypt
           .compare(body.password, QueryResult.password)
