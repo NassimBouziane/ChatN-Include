@@ -6,9 +6,10 @@ import SideBarIcon from '../components/sidebar_Icon';
 import '../styles/input.css';
 
 export default function Messagerie() {
-  return (<div> <Message/><SideBar02/><SideBar/>
+  return (<div><h1 className='text-center text-black font-serif text-4xl '>Messagerie</h1>
+     <Message/><SideBar02/><SideBar/>
   
-    <h1 className='text-center text-black font-serif text-4xl '>Messagerie</h1>
+    
 
     <div></div>
 
