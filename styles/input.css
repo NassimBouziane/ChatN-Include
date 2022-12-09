@@ -22,7 +22,7 @@
 
     .sidebar-icon {
         @apply relative flex items-center justify-center
-        h-12 w-12 mt-8 mb-8  mt-4 mx-auto shadow-lg
+        h-12 w-12 mt-12 mb-8  mx-auto shadow-lg
         bg-gradient-to-r from-[#A46ED3] to-[#adb6fa] text-center rounded-3xl 
         hover:rounded-xl hover:from-[#a46ed3c2] hover:to-[#adb6fad7]
         transition-all duration-200;

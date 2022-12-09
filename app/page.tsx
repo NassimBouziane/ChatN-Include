@@ -50,13 +50,6 @@ export default function Page() {
           <Button01 direction={link} title="Connectez-vous" />
         </div>
       </div>
-      <div className="grid grid-rows-3 grid-cols-1 w-full h-full">
-        <div></div>
-        <div></div>
-        <div className="text-center">
-          <Button01 direction={link} title="Connectez-vous" />
-        </div>
-      </div>
     </div>
   );
 }
