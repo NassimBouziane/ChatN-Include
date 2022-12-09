@@ -7,7 +7,7 @@ export default function SideBar02() {
         <div className="fixed top-0 left-[2.5%] h-screen w-full ml-4
                         flex flex-col p-6 mb-3
                         bg-[#f3f3f3] text-white shadow-lg z-0">
-        <div className='flex'>
+        <div className='flex pt-[2.5%]'>
           <div className='flex p-3 mb-3 hover:bg-gray-200 rounded-lg '>
             <div>
               <img className="w-14 h-14 rounded-full bg-[url('https://www.gpao.fr/wp-content/uploads/2020/03/62681-flat-icons-face-computer-design-avatar-icon.png')]" />

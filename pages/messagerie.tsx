@@ -4,15 +4,15 @@ import SideBar from '../components/sidebar';
 import SideBar02 from '../components/sidebar_02';
 
 import '../styles/input.css';
+import message from '../components/message';
 
 export default function Messagerie() {
-  return (<div><h1 className='text-center text-black font-serif text-4xl '>Messagerie</h1>
-     <Message/><SideBar02/><SideBar/>
-  
-    
-
-    <div></div>
-<Collapse/>
-</div>
+  return (
+    <div>      
+      <SideBar02/>
+      <SideBar/>
+      <Collapse/>
+      <Message/>
+    </div>
   );
 }

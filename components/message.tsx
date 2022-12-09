@@ -5,11 +5,11 @@ import InputEmoji from "react-input-emoji";
 
 export default function message() {
   return (
-    <div className="fixed z-10">
-      <div className="w-[77.4%] h-[93vh] ml-80 grid grid-rows-4 justify-item-end bg-white shadow-lg rounded-2xl z-100">
+    <div className="fixed z-10 mt-[3%]">
+      <div className="w-[77.4%] h-[92vh] ml-80 grid grid-rows-4 justify-item-end bg-white shadow-lg rounded-2xl z-100">
         <div className="flex flex-col mt-5">
           <div className="flex justify-end mr-4">
-            <div className="mr-2 py-3 px-4 bg-[#adb6fa] rounded-bl-3xl rounded-tl-3xl rounded-tr-xl text-white">
+            <div className="mr-2 py-3 px-4 bg-[#adb6fa] rounded-bl-3xl rounded-tl-3xl rounded-br-3xl  text-white">
               Welcome to group everyone !
             </div>
             <img
@@ -18,13 +18,13 @@ export default function message() {
               alt=""
             />
           </div>
-          <div className="flex justify-start mb-4 ml-6 w-6/12">
+          <div className="flex justify-start mb-12 ml-6 w-6/12">
             <img
               src="https://i.pinimg.com/originals/89/5a/09/895a09d473cdaa5af97490098f07ce52.png"
-              className="object-cover h-8 w-8 rounded-full"
+              className="object-cover h-8 w-8 mb-[5%] rounded-full"
               alt=""
             />
-            <div className="ml-2 py-3 px-4 bg-[#A46ED3] rounded-br-3xl rounded-tr-3xl rounded-tl-xl text-white w-full">
+            <div className="ml-2 py-3 px-4 bg-[#A46ED3] rounded-tr-3xl rounded-bl-3xl rounded-br-3xl text-white w-full">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat
               at praesentium, aut ullam delectus odio error sit rem. Architecto
               nulla doloribus laborum illo rem enim dolor odio saepe,
