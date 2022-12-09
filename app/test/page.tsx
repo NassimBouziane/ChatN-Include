@@ -1,19 +1,20 @@
-"use client"
-import "../../styles/App.css";
-import io from "socket.io-client";
-import { useState } from "react";
-import Chat from "./Chat";
+'use client';
 
-const socket = io.connect("http://localhost:3001");
+import '../../styles/App.css';
+import io from 'socket.io-client';
+import { useState } from 'react';
+import Chat from './chat';
+
+const socket = io.connect('http://localhost:3001');
 
 function index() {
-  const [username, setUsername] = useState("");
-  const [room, setRoom] = useState("");
+  const [username, setUsername] = useState('');
+  const [room, setRoom] = useState('');
   const [showChat, setShowChat] = useState(false);
 
   const joinRoom = () => {
-    if (username !== "" && room !== "") {
-      socket.emit("join_room", room);
+    if (username !== '' && room !== '') {
+      socket.emit('join_room', room);
       setShowChat(true);
     }
   };
