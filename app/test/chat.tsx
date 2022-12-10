@@ -1,7 +1,14 @@
 import React, { useEffect, useState } from "react";
 import ScrollToBottom from "react-scroll-to-bottom";
+import InputEmoji from "react-input-emoji";
+import { RiSendPlaneLine } from "react-icons/ri";
+import { AiOutlinePaperClip, AiOutlineGif } from "react-icons/ai";
+import Gif from '../../components/gif'
+import Image from "next/image";
+import message from "../../components/message";
 
 function Chat({ socket, username, room }) {
+  const [isShown, setIsShown] = useState(false);
   const [currentMessage, setCurrentMessage] = useState("");
   const [messageList, setMessageList] = useState([]);
 
@@ -28,11 +35,15 @@ function Chat({ socket, username, room }) {
       setMessageList((list) => [...list, data]);
     });
   }, []);
-
+  const handleClick = event => {
+    // 👇️ toggle shown state
+    setIsShown(current => !current);
+  };
+ const setGifUrlToChat = url => {setCurrentMessage(url);}
   return (
     <div className="chat-window">
       <div className="chat-header">
-        <p>Live Chat</p>
+        <p>GROUPE {room}</p>
       </div>
       <div className="chat-body">
         <ScrollToBottom className="message-container">
@@ -40,11 +51,11 @@ function Chat({ socket, username, room }) {
             return (
               <div
                 className="message"
-                id={username === messageContent.author ? "you" : "other"}
-              >
+                id={username === messageContent.author ? "you" : "other"}>
                 <div>
                   <div className="message-content">
-                    <p>{messageContent.message}</p>
+                    {messageContent.message.startsWith('https://media') && <Image src={messageContent.message} width={200} height={200} alt="un gif a été envoyer par //METTRE TITTLE DU GIF ICI"/> || <p>{messageContent.message}</p> }        
+                    
                   </div>
                   <div className="message-meta">
                     <p id="time">{messageContent.time}</p>
@@ -56,19 +67,29 @@ function Chat({ socket, username, room }) {
           })}
         </ScrollToBottom>
       </div>
+      {isShown && (
+        <div>
+          <Gif sendToChat={(urlgif) => setGifUrlToChat(urlgif)} />
+        </div>
+      )}
       <div className="chat-footer">
-        <input
-          type="text"
-          value={currentMessage}
-          placeholder="Hey..."
-          onChange={(event) => {
-            setCurrentMessage(event.target.value);
-          }}
-          onKeyPress={(event) => {
-            event.key === "Enter" && sendMessage();
-          }}
-        />
-        <button onClick={sendMessage}>&#9658;</button>
+        <InputEmoji
+            className=""
+            value={currentMessage}
+            onChange={(currentMessage) => {
+              setCurrentMessage(currentMessage);
+            }}
+            onKeyPress={(event) => {
+              console.log(event.key)
+              event.key === "Enter" && sendMessage();
+            }}
+            cleanOnEnter
+            onEnter={sendMessage}
+            placeholder="Type a message"/>
+            <AiOutlineGif size={'30px'} onClick={handleClick}/>
+            <AiOutlinePaperClip size={'30px'}/>      
+            <RiSendPlaneLine size={'30px'} onClick={sendMessage}/>
+            
       </div>
     </div>
   );
