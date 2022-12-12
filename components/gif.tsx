@@ -30,5 +30,5 @@ export default function Carousel({ sendToChat }) {
     columns={3}
     gutter={6}
     key={value}
-  />;</div>;
+  /></div>;
 }
