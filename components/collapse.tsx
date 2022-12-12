@@ -1,11 +1,18 @@
+import { useEffect, useState } from 'react';
 import { BiChevronDown } from 'react-icons/bi';
 import '../styles/input.css';
 import DropButton from './dropbutton';
+import { getCookie } from 'typescript-cookie';
 
 export default function Selector() {
-  return (<div className='ml-[87%] w-44 h-screen font-medium fixed z-20 '>
+  const [username,setUsername] = useState(null)
+  useEffect(() => {
+    const res = fetch(`http://localhost:3000/api/users/${getCookie('id')}`).then((response) => response.json())
+    .then((data) => {setUsername(data.username)})
+  }, []);
+  return (<div className='ml-[87%] w-48 h-screen font-medium fixed z-20 '>
   <button className="bg-white w-full p-1 flex items-center justify-center rounded-full  group"><BiChevronDown size={20}/>
-  <div className='ml-6 text-[#A371D0]'><DropButton text='Nassim'/></div>
+  <div className='ml-6 text-[#A371D0]'><DropButton text={username}/></div>
   <img
             src="https://cdna.artstation.com/p/assets/images/images/044/872/734/large/rodion-vlasov-fin1-1.jpg?1641375316"
             className="flex ml-10 object-cover h-8 w-8 rounded-full "

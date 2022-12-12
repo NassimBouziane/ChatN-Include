@@ -12,3 +12,7 @@ export interface Login  {
   email: string,
   password : string
 }
+export interface Person {
+  token : string,
+  id : number
+}

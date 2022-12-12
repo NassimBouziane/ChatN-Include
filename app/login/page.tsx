@@ -4,21 +4,22 @@
 import { useRef, useEffect } from 'react';
 import { setCookie, getCookie } from 'typescript-cookie';
 import Button02 from '../../components/button_02';
+import { Person } from '../../interfaces';
 
 export default function login() {
   const email = useRef(null);
   const password = useRef(null);
 
   async function getData() {
-    console.log('test');
-    const res = await fetch('http://localhost:3000/api/login', {
+    const res:Person = await fetch('http://localhost:3000/api/login', {
       method: 'POST',
       body: JSON.stringify({
         email: email.current.value,
         password: password.current.value,
       }),
     }).then((res) => res.json());
-    await setCookie('token', res);
+    setCookie('token', res.token);
+    setCookie('id', res.id)
     if (getCookie('token')) {
       document.location = '/messagerie';
     }
