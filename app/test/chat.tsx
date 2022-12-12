@@ -5,7 +5,6 @@ import { RiSendPlaneLine } from "react-icons/ri";
 import { AiOutlinePaperClip, AiOutlineGif } from "react-icons/ai";
 import Gif from '../../components/gif'
 import Image from "next/image";
-import message from "../../components/message";
 
 function Chat({ socket, username, room }) {
   const [isShown, setIsShown] = useState(false);
