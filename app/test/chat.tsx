@@ -39,6 +39,7 @@ function Chat({ socket, username, room }) {
   };
   const setGifUrlToChat = (url) => {
     setCurrentMessage(url);
+    setIsShown(false);
   };
   return (
     <div className="chat-window bg-white rounded-lg shadow-lg w-full  h-full">
@@ -81,7 +82,7 @@ function Chat({ socket, username, room }) {
         </ScrollToBottom>
       </div>
       {isShown && (
-        <div>
+        <div className='absolute bottom-[15%] right-[5%]'>
           <Gif sendToChat={(urlgif) => setGifUrlToChat(urlgif)} />
         </div>
       )}
