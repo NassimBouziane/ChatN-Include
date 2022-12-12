@@ -1,11 +1,12 @@
 .App {
-    width: 100vw;
-    height: 100vh;
-    background: #fff;
+    width: 30vw;
+    height: 30vh;
     color: #212121;
     font-family: "Open Sans", sans-serif;
     display: grid;
     place-items: center;
+    margin-left: 40%;
+    margin-top: 10%;
   }
   body {
     margin: 0%;
@@ -51,8 +52,8 @@
   }
   
   .chat-window {
-    width: 300px;
-    height: 420px;
+    width: 200%;
+    height: 135%;
   }
   
   .chat-window p {
@@ -74,7 +75,7 @@
   }
   
   .chat-window .chat-body {
-    height: calc(450px - (45px + 70px));
+    height: calc(700px - (45px + 70px));
     border: 1px solid #263238;
     background: #fff;
   
@@ -100,9 +101,9 @@
     width: auto;
     height: auto;
     min-height: 40px;
-    max-width: 120px;
-    background-color: #43a047;
+    background-color: #adb6fa;
     border-radius: 5px;
+    border-bottom: none;
     color: white;
     display: flex;
     align-items: center;
@@ -113,11 +114,13 @@
     overflow-wrap: break-word;
     word-break: break-word;
   }
-  
+  img {
+  max-width: max-content;
+  }
+
   #you {
     justify-content: flex-end;
   }
-  
   #you .message-content {
     justify-content: flex-start;
     text-align: center;
@@ -134,7 +137,7 @@
   
   #other .message-content {
     justify-content: flex-start;
-    background-color: cornflowerblue;
+    background-color: #A46ED3;
     text-align: center;
   }
   #other .message-meta {
@@ -154,9 +157,9 @@
   
   .chat-window .chat-footer {
     height: 40px;
-    border: 1px solid #263238;
     border-top: none;
     display: flex;
+    word-break:break-word;
   }
   
   .chat-window .chat-footer input {
