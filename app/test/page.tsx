@@ -2,11 +2,11 @@
 
 import '../../styles/App.css';
 import io from 'socket.io-client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Chat from './chat';
+import { getCookie } from 'typescript-cookie';
 
 const socket = io.connect('http://localhost:3001');
-
 function index() {
   const [username, setUsername] = useState('');
   const [room, setRoom] = useState('');
@@ -18,7 +18,11 @@ function index() {
       setShowChat(true);
     }
   };
+  useEffect(() => {
 
+    const res = fetch(`http://localhost:3000/api/users/${getCookie('id')}`).then((response) => response.json())
+    .then((data) => {setShowChat(true),setUsername(data.username)})
+  }, []);
   return (
     <div className="App">
       {!showChat ? (

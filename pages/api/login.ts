@@ -1,6 +1,6 @@
 import * as dotenv from 'dotenv';
 import { PrismaClient } from '@prisma/client';
-import { Login } from '../../interfaces/index';
+import { Login, Person } from '../../interfaces/index';
 
 dotenv.config();
 
@@ -35,7 +35,8 @@ export default async function handler(req, res) {
                   expiresIn: '24h',
                 },
               );
-              return res.status(200).json(acces);
+              const result: Person = {token: acces, id: QueryResult.id}
+              return res.status(200).json(result);
             }
           });
       } else {
