@@ -21,7 +21,7 @@ function index() {
   useEffect(() => {
 
     const res = fetch(`http://localhost:3000/api/users/${getCookie('id')}`).then((response) => response.json())
-    .then((data) => {setShowChat(true),setUsername(data.username)})
+    .then((data) => {socket.emit('join_room', data.group_id),setShowChat(true),setUsername(data.username);})
   }, []);
   return (
     <div className="App">

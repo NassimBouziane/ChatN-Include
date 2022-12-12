@@ -11,14 +11,14 @@ export default function Carousel({ sendToChat }) {
 
   const fetchGifs = (offset: number) => {
     if (value === '') {
-      return giphyFetch.trending({ offset, limit: 10 });
+      return giphyFetch.trending({ offset, limit: 13 });
     }
 
-    return giphyFetch.search(value, { offset, limit: 10 });
+    return giphyFetch.search(value, { offset, limit: 13 });
   };
 
-  return <div className="overflow-y-scroll bg-[#adb6fa] border-t-[30px] border-r-[10px] border-b-[20px] border-l-[10px] border-[#adb6fa]">
-    <input className="m-2 rounded-lg p-2" type="text" placeholder='shearch a gif' value={value} onChange={(value) => setValue(value.target.value)} ></input>
+  return <div className="overflow-y-hidden bg-[#adb6fa] border-t-[30px] border-r-[10px] border-b-[20px] border-l-[10px] border-[#adb6fa]">
+    <input className="m-2 rounded-lg p-2" type="text" placeholder='search a gif' value={value} onChange={(value) => setValue(value.target.value)} ></input>
     <Grid
 
     onGifClick={(gif, e) => {

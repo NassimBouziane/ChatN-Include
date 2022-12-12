@@ -83,7 +83,7 @@ function Chat({ socket, username, room }) {
       </div>
       {isShown && (
         <div className='absolute bottom-[15%] right-[5%]'>
-          <Gif sendToChat={(urlgif) => setGifUrlToChat(urlgif)} />
+          <Gif sendToChat={(urlgif) => setGifUrlToChat(urlgif)}/>
         </div>
       )}
 
@@ -93,10 +93,6 @@ function Chat({ socket, username, room }) {
           value={currentMessage}
           onChange={(currentMessage) => {
             setCurrentMessage(currentMessage);
-          }}
-          onKeyPress={(event) => {
-            console.log(event.key);
-            event.key === 'Enter' && sendMessage();
           }}
           cleanOnEnter
           onEnter={sendMessage}
