@@ -6,9 +6,9 @@ import SideBarIcon from './sidebar_Icon';
 
 export default function SideBar() {
   return (
-        <div className="fixed top-0 left-0 h-screen w-16 m-0
-                        flex flex-col 
-                        bg-[#f3f3f3] text-white shadow-lg ">
+        <div className="h-screen w-full
+                        flex flex-col
+                        bg-[#f3f3f3] text-white border-r-2 z-10">
 
             <SideBarIcon icon={<FiMail size="28"/>}text='Mail'/>
             <SideBarIcon icon={<BiChat size="28"/>}text='Chat'/>

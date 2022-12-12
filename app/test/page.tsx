@@ -20,7 +20,7 @@ function index() {
   };
 
   return (
-    <div className="App fixed">
+    <div className="App">
       {!showChat ? (
         <div className="joinChatContainer">
           <h3>Join A Chat</h3>
