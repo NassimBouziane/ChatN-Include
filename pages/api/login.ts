@@ -37,7 +37,6 @@ export default async function handler(req, res) {
                 },
               );
               const result: Person = {token: acces, id: QueryResult.id}
-              console.log(result);
               return res.status(200).json(result);
             }
           });

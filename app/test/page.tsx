@@ -8,20 +8,20 @@ import { getCookie } from 'typescript-cookie';
 
 const socket = io.connect('http://localhost:3001');
 function index() {
-  const [username, setUsername] = useState('');
-  const [room, setRoom] = useState('');
+  const [username, setUsername] = useState();
+  const [room, setRoom] = useState();
   const [showChat, setShowChat] = useState(false);
 
-  const joinRoom = () => {
-    if (username !== '' && room !== '') {
+  async function joinRoom(username,room){
+    if (username !== '' && room !== '' && showChat === false) {
       socket.emit('join_room', room);
       setShowChat(true);
     }
-  };
-  useEffect(() => {
+  }
+  useEffect(() => { 
+      const res = fetch(`http://localhost:3000/api/users/${getCookie('id')}`).then((response) => response.json())
+    .then((data) => {setRoom(data.group_id),setUsername(data.username),joinRoom(data.username,data.group_id);})
 
-    const res = fetch(`http://localhost:3000/api/users/${getCookie('id')}`).then((response) => response.json())
-    .then((data) => {socket.emit('join_room', data.group_id),setShowChat(true),setUsername(data.username);})
   }, []);
   return (
     <div className="App">
