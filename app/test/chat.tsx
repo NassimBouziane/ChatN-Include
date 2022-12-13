@@ -6,6 +6,7 @@ import { AiOutlinePaperClip, AiOutlineGif } from 'react-icons/ai';
 import Image from 'next/image';
 import Gif from '../../components/gif';
 
+
 function Chat({ socket, username, room }) {
   const [isShown, setIsShown] = useState(false);
   const [currentMessage, setCurrentMessage] = useState('');
@@ -14,17 +15,26 @@ function Chat({ socket, username, room }) {
   const sendMessage = async () => {
     if (currentMessage !== '') {
       const messageData = {
-        room,
-        author: username,
-        message: currentMessage,
-        time: `${new Date(Date.now()).getHours()}:${new Date(
+        content: currentMessage,
+        created_at : `${new Date(Date.now()).getHours()}:${new Date(
           Date.now(),
         ).getMinutes()}`,
-      };
-
+        belongs_to: room,
+        created_by: username,
+        id: '',
+      }; 
       await socket.emit('send_message', messageData);
       setMessageList((list) => [...list, messageData]);
       setCurrentMessage('');
+      fetch('http://localhost:3000/api/messages', {
+      method: 'POST',
+      body: JSON.stringify({
+        created_by: messageData.created_by,
+        created_at:messageData.created_at,
+        content: messageData.content,
+        belongs_to: messageData.belongs_to
+      }),
+    })
     }
   };
 
@@ -32,6 +42,8 @@ function Chat({ socket, username, room }) {
     socket.on('receive_message', (data) => {
       setMessageList((list) => [...list, data]);
     });
+    const res = fetch(`http://localhost:3000/api/messages/${room}`, {
+      }).then((res) => res.json()).then((data) => {data.map((data) => (setMessageList((list) => [...list, data])))})
   }, []);
   const handleClick = (event) => {
     // 👇️ toggle shown state
@@ -48,22 +60,22 @@ function Chat({ socket, username, room }) {
       </div> */}
       <div className="chat-body rounded-lg">
         <ScrollToBottom className="message-container pt-4">
-          {messageList.map((messageContent) => (
+          {messageList.map((messageContent) => ( 
             <div
               className="message"
-              id={username === messageContent.author ? 'you' : 'other'}
+              id={username === messageContent.created_by ? 'you' : 'other'}
             >
               <div className="">
                 <div className="flex">
                   <div className="message-content">
-                    {(messageContent.message.startsWith('https://media') && (
+                    {(messageContent.content.startsWith('https://media') && (
                       <Image
-                        src={messageContent.message}
+                        src={messageContent.content}
                         width={200}
                         height={200}
                         alt="un gif a été envoyer par //METTRE TITTLE DU GIF ICI"
                       />
-                    )) || <p>{messageContent.message}</p>}
+                    )) || <p>{messageContent.content}</p>}
                   </div>
                   <img
                     src="https://cdna.artstation.com/p/assets/images/images/044/872/734/large/rodion-vlasov-fin1-1.jpg?1641375316"
@@ -73,8 +85,8 @@ function Chat({ socket, username, room }) {
                 </div>
 
                 <div className="message-meta">
-                  <p id="time">{messageContent.time}</p>
-                  <p id="author">{messageContent.author}</p>
+                  <p id="time">{messageContent.created_at}</p>
+                  <p id="author">{messageContent.created_by}</p>
                 </div>
               </div>
             </div>

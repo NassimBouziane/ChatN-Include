@@ -21,7 +21,6 @@ function index() {
   useEffect(() => { 
       const res = fetch(`http://localhost:3000/api/users/${getCookie('id')}`).then((response) => response.json())
     .then((data) => {setRoom(data.group_id),setUsername(data.username),joinRoom(data.username,data.group_id);})
-
   }, []);
   return (
     <div className="App">
