@@ -18,17 +18,17 @@ export default function login() {
         password: password.current.value,
       }),
     }).then((res) => res.json());
-    setCookie('token', res.token);
-    setCookie('id', res.id)
+    await setCookie('token', res.token);
+    await setCookie('id', res.id)
     if (getCookie('token')) {
       document.location = '/messagerie';
     }
   }
-  useEffect(() => { window.location.reload; }, []);
+  useEffect(() => { window.location.reload;}, []);
   return (
     <div className="grid grid-rows-3 gap-1">
       <div></div>
-      <form onSubmit={getData} className="grid grid-rows-4 gap-2">
+      <form method="post" onSubmit={getData} className="grid grid-rows-4 gap-2">
         <p></p>
         <div>
           <label htmlFor="name" className="flex justify-center mt-2">
@@ -38,6 +38,7 @@ export default function login() {
         <div className="flex justify-center">
           <input
             ref={email}
+            onChange={getData}
             type="email"
             id="email"
             name="email"

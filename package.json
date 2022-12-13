@@ -1,7 +1,8 @@
 {
   "private": true,
   "scripts": {
-    "dev": "concurrently \"next dev\" \"tailwindcss --input ./styles/input.css --output ./styles/output.css --watch\"",
+    "dev": "start cmd /k npm run sockets && concurrently \"next dev\" \"tailwindcss --input ./styles/input.css --output ./styles/output.css --watch\"",
+    "sockets": " node src/index.js",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -17,6 +18,8 @@
     "@giphy/js-fetch-api": "^4.7.1",
     "@giphy/js-types": "^4.4.0",
     "@giphy/react-components": "^6.5.1",
+    "@headlessui/react": "^1.7.5",
+    "@mui/material": "^5.11.0",
     "@prisma/client": "^4.7.1",
     "antd": "^5.0.4",
     "bcrypt": "^5.1.0",

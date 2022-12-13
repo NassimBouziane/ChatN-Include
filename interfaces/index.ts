@@ -16,3 +16,10 @@ export interface Person {
   token : string,
   id : number
 }
+export interface Message {
+  created_by: string,
+  content: string,
+  created_at:Date,
+  belongs_to:string
+
+}
