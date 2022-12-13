@@ -1,6 +1,6 @@
 /* eslint-disable class-methods-use-this */
 import React, { Component } from 'react';
-import '../styles/output.css';
+import '../../styles/output.css';
 import FullCalendar from '@fullcalendar/react'; // must go before plugins
 import timeGridPlugin from '@fullcalendar/timegrid';
 
@@ -22,7 +22,7 @@ export default class App extends Component {
 
   componentDidMount() {
     // fetch events here
-    fetch('http://localhost:3000/api/events')
+    fetch('http://localhost:3000/api/events/')
       .then((response) => response.json())
       .then((events) => {
         this.setState({

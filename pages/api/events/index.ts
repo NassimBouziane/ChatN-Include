@@ -20,6 +20,7 @@ export default async function handler(req, res) {
           color: req.body.color,
           z_index: req.body.z_index,
           created_by: req.body.created_by,
+          belong_to: req.body.belong_to,
         },
       });
       res.send('Event Created');
