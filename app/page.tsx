@@ -7,6 +7,7 @@ import '../styles/output.css';
 import { useEffect, useState } from 'react';
 import { getCookie } from 'typescript-cookie';
 import Button01 from '../components/button_01';
+import Notification from '../components/notification';
 
 export default function Page() {
   const [link, setLink] = useState('');
@@ -48,6 +49,7 @@ export default function Page() {
         <div></div>
         <div className="text-center">
           <Button01 direction={link} title="Connectez-vous" />
+          <Notification/>
         </div>
       </div>
     </div>
