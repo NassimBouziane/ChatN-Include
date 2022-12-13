@@ -5,12 +5,41 @@ import { RiSendPlaneLine } from 'react-icons/ri';
 import { AiOutlinePaperClip, AiOutlineGif } from 'react-icons/ai';
 import Image from 'next/image';
 import Gif from '../../components/gif';
+import Avatar from '@mui/material/Avatar';
 
 
 function Chat({ socket, username, room }) {
   const [isShown, setIsShown] = useState(false);
   const [currentMessage, setCurrentMessage] = useState('');
   const [messageList, setMessageList] = useState([]);
+  function stringToColor(string: string) {
+    let hash = 0;
+    let i;
+  
+    /* eslint-disable no-bitwise */
+    for (i = 0; i < string.length; i += 1) {
+      hash = string.charCodeAt(i) + ((hash << 5) - hash);
+    }
+  
+    let color = '#';
+  
+    for (i = 0; i < 3; i += 1) {
+      const value = (hash >> (i * 8)) & 0xff;
+      color += `00${value.toString(16)}`.slice(-2);
+    }
+    /* eslint-enable no-bitwise */
+  
+    return color;
+  }
+  
+  function stringAvatar(name: string) {
+    return {
+      sx: {
+        bgcolor: stringToColor(name),
+      },
+      children: `${Array.from(name)[0].toUpperCase()}`,
+    };
+  }
 
   const sendMessage = async () => {
     if (currentMessage !== '') {
@@ -77,11 +106,7 @@ function Chat({ socket, username, room }) {
                       />
                     )) || <p>{messageContent.content}</p>}
                   </div>
-                  <img
-                    src="https://cdna.artstation.com/p/assets/images/images/044/872/734/large/rodion-vlasov-fin1-1.jpg?1641375316"
-                    className="object-cover h-8 w-8 rounded-full"
-                    alt=""
-                  />
+                  <Avatar {...stringAvatar(messageContent.created_by)}></Avatar>
                 </div>
 
                 <div className="message-meta">

@@ -173,9 +173,9 @@
     opacity: 0 !important;
   }
 */
-  div#other:nth-child(even) {
+  /* div#other:nth-child(even) {
     display: none;
-}
+} */
 .css-ycnx2i{
   display: none;
 }
