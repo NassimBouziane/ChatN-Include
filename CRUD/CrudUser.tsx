@@ -5,30 +5,33 @@ import { useEffect, useState, useRef } from 'react';
 import { Getuser } from '../interfaces';
 
 export default function UserPost() {
-  const username = useRef(null);
-  const email = useRef(null);
-  const password = useRef(null);
-  const roleid = useRef(null);
-  const groupid = useRef(null);
+  const [addUser, setAddUser] = useState({
+    username: '',
+    email: '',
+    password: '',
+    role_id: Number,
+    group_id: '',
+  });
 
-  async function getData() {
-    console.log('je suis la');
-    const adduser = await fetch('http://localhost:3000/api/users', {
+  const handleAdduser = (event) => {
+    event.preventDefault();
+
+    const fieldName = event.target.getAttribute('name');
+    const fieldValue = event.target.value;
+
+    const newUser = { ...addUser };
+    newUser[fieldName] = fieldValue;
+
+    setAddUser(newUser);
+  };
+
+  const handleAddusersubmit = async (event) => {
+    event.preventDefault();
+    const user = await fetch('/api/users/', {
       method: 'POST',
-      body: JSON.stringify({
-        username: username.current.value,
-        email: email.current.value,
-        password: password.current.value,
-        role_id: roleid.current.value,
-        group_id: groupid.current.value,
-      }),
-    }).then((res) => {
-      res.json();
-      console.log(adduser, 'test1');
+      body: JSON.stringify(addUser),
     });
-  }
-
-  console.log(username, 'test2');
+  };
 
   const [user, setUser] = useState(null);
   useEffect(() => {
@@ -43,9 +46,9 @@ export default function UserPost() {
   return (
     <div className="app-container">
       <h5>Add a User </h5>
-      <form onSubmit={getData}>
+      <form onSubmit={handleAddusersubmit}>
         <input
-          ref={username}
+          onChange={handleAdduser}
           type="text"
           name="username"
           placeholder="Enter a name"
@@ -56,7 +59,7 @@ export default function UserPost() {
                           focus:invalid:border-pink-500 focus:invalid:ring-pink-500 "
         ></input>
         <input
-          ref={email}
+          onChange={handleAdduser}
           type="email"
           name="email"
           placeholder="Enter an email"
@@ -67,9 +70,9 @@ export default function UserPost() {
                           focus:invalid:border-pink-500 focus:invalid:ring-pink-500 "
         ></input>
         <input
-          ref={password}
+          onChange={handleAdduser}
           type="password"
-          name="Password"
+          name="password"
           placeholder="Enter a password"
           className="mt-1 flex justify-center  px-3 py-2 bg-white border border-slate-300text-sm shadow-sm placeholder-slate-400
                           focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500
@@ -78,8 +81,8 @@ export default function UserPost() {
                           focus:invalid:border-pink-500 focus:invalid:ring-pink-500 "
         ></input>
         <input
-          ref={roleid}
-          type="number"
+          onChange={handleAdduser}
+          type="text"
           name="role_id"
           placeholder="Enter a role"
           className="mt-1 flex justify-center  px-3 py-2 bg-white border border-slate-300text-sm shadow-sm placeholder-slate-400
@@ -89,7 +92,7 @@ export default function UserPost() {
                           focus:invalid:border-pink-500 focus:invalid:ring-pink-500 "
         ></input>
         <input
-          ref={groupid}
+          onChange={handleAdduser}
           type="text"
           name="group_id"
           placeholder="Enter a group"
@@ -112,20 +115,19 @@ export default function UserPost() {
             <th>id</th>
             <th>username</th>
             <th>email</th>
-            <th>password</th>
+
             <th>role_id</th>
             <th>group_id</th>
           </tr>
         </thead>
         <tbody>
           {user
-            && user.map((user: Getuser, i: number) => (
+            && user.map((user: Getuser, i: any) => (
               <>
                 <tr>
                   <td>{user.id}</td>
                   <td>{user.username}</td>
                   <td>{user.email}</td>
-                  <td>{user.password}</td>
                   <td>{user.role_id}</td>
                   <td>{user.group_id}</td>
                 </tr>

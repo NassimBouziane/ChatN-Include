@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma/client';
-
+import { Getuser } from '../../../interfaces';
 const bcrypt = require('bcrypt');
 
 const prisma = new PrismaClient();
@@ -15,13 +15,8 @@ export default async function handler(req, res) {
 
     // Create new user
     case 'POST': {
-      const data = {
-        username: req.body.username,
-        email: req.body.email,
-        password: req.body.password,
-        role_id: req.body.role_id,
-        group_id: req.body.group_id,
-      };
+      // const test = Number(req.body.role_id);
+      const data: Getuser = JSON.parse(req.body);
       try {
         const hash = await bcrypt.hash(data.password, 10);
         const QueryResult = await prisma.users.create({
