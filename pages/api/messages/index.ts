@@ -11,12 +11,15 @@ export default async function handler(req, res) {
       break; }
     case 'POST': {
       const body:Message = JSON.parse(req.body)
+      console.log(body);
       const QueryResult = await prisma.messages.create({
         data: {
           created_by:body.created_by,
           content: body.content,
           created_at: body.created_at,
-          belongs_to: body.belongs_to
+          belongs_to: body.belongs_to,
+          bodyFile: body.bodyFile,
+          type: body.type
         },
       });
       res.send(QueryResult);
