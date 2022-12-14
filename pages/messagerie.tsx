@@ -22,10 +22,8 @@ export default function Messagerie() {
           <div className="w-40 h-full bg-green-500">
             <SideBar/>
           </div>
-          <div className="w-1/5 h-full grid grid-cols-1 z-0">
-            <SideBar02/>
-          </div>
-          <div className="flex justify-center w-3/4 bg-gray-200 p-4">
+          
+          <div className="flex justify-center w-full bg-gray-200 p-4">
             <div className="flex w-full h-[100%] resize-none">
               <Page />
             </div>

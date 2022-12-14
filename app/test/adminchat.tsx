@@ -8,7 +8,7 @@ import Gif from '../../components/gif';
 import Avatar from '@mui/material/Avatar';
 
 
-function Chat({ socket, username, room }) {
+function AdminChat({ socket, username, room }) {
   const [isShown, setIsShown] = useState(false);
   const [currentMessage, setCurrentMessage] = useState('');
   const [messageList, setMessageList] = useState([]);
@@ -145,4 +145,4 @@ function Chat({ socket, username, room }) {
   );
 }
 
-export default Chat;
+export default AdminChat;
