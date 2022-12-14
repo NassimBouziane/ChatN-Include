@@ -57,6 +57,9 @@ function Chat({ socket, username, room }) {
   };
   const sendMessage = async () => {
     if (currentMessage !== '') {
+      setTimeout(() => {
+        console.log('Hello, World!')
+      }, 2000);
       if(file){
         const messageData = {
         content: file.name,
@@ -125,6 +128,10 @@ function Chat({ socket, username, room }) {
     setCurrentMessage(url);
     setIsShown(false);
   };
+  function upload(){
+    const form = document.forms['uploadForm'];
+    form.submit();
+  }
   return (
     <div className="chat-window bg-white rounded-lg shadow-lg w-full  h-full">
       {/* <div className="chat-header">
@@ -180,14 +187,14 @@ function Chat({ socket, username, room }) {
         />
         <div className="flex w-fit justify-end my-4 gap-2 mx-2">
           <AiOutlineGif size={'30px'} onClick={handleClick} className="" />
-            {/* <input id='form' ref={hiddenFileInput} className='hidden' onChange={selectFile} type="file" /> <AiOutlinePaperClip onClick={handleClick1} size={'30px'} /> */}
+            <input id='form' ref={hiddenFileInput} className='hidden' onChange={selectFile} type="file" /> 
             <form ref={uploadForm}
       id='uploadForm' 
       action='http://localhost:3001/upload' 
       method='post' 
       encType="multipart/form-data">
-        <input type="file" name="sampleFile" ref={hiddenFileInput}  onChange={selectFile} />
-        <input type='submit' value='Upload!' />
+        <input className='hidden' type="file" name="sampleFile" ref={hiddenFileInput}  onChange={(event) => {upload(), selectFile(event)}} />
+        <AiOutlinePaperClip ref={hiddenFileInput} onChange={selectFile} onClick={handleClick1} size={'30px'} />
     </form>  
           <RiSendPlaneLine size={'30px'} onClick={sendMessage} />
         </div>
