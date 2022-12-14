@@ -2,11 +2,12 @@
 import '../styles/input.css';
 import React from 'react';
 import { Tab } from '@headlessui/react';
+import UserPost from '../CRUD/CrudUser';
 
 export default function MyTabs() {
   return (
     <div>
-    <Tab.Group >
+    <Tab.Group>
       <Tab.List className="fixed top-0 left-0 h-screen w-28
                         flex flex-col gap-3
                         bg-[#f3f3f3] text-black shadow-xl">
@@ -14,8 +15,8 @@ export default function MyTabs() {
         <Tab className="w-full h-12 focus:bg-[#ADB6FA] focus:border-l-4 focus:border-[#A371D0] ">Events</Tab>
         <Tab className="w-full h-12 focus:bg-[#ADB6FA] focus:border-l-4 focus:border-[#A371D0]">Groups</Tab>
       </Tab.List>
-      <Tab.Panels className="fixed left-[55%] font-xl">
-        <Tab.Panel>Content 1</Tab.Panel>
+      <Tab.Panels className=" ml-[10%] font-xl">
+        <Tab.Panel>{UserPost}</Tab.Panel>
         <Tab.Panel>Content 2</Tab.Panel>
         <Tab.Panel>Content 3</Tab.Panel>
       </Tab.Panels>

@@ -8,7 +8,16 @@ export type User = {
   id: number
   name: string
 };
-export interface Login  {
+export interface Login {
   email: string,
   password : string
+}
+
+export interface Getuser {
+  id: number,
+  username: string,
+  email: string,
+  password: string,
+  role_id: number,
+  group_id: string
 }
