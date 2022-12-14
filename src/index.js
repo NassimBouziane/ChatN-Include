@@ -19,12 +19,13 @@ app.post('/upload', function(req, res) {
 
   // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
   sampleFile = req.files.sampleFile;
-  uploadPath = __dirname + '/src' + sampleFile.name;
+  uploadPath =  'src/public/' + sampleFile.name;
 
   // Use the mv() method to place the file somewhere on your server
   sampleFile.mv(uploadPath, function(err) {
-    if (err)
+    if (err) 
       return res.status(500).send(err);
+      
   });
 });
 
@@ -51,7 +52,8 @@ io.on("connection", (socket) => {
     console.log("User Disconnected", socket.id);
   });
 });
-
+const path = require('path')
+app.use(express.static(path.join(__dirname, '/public')))
 server.listen(3001, () => {
   console.log("SERVER RUNNING");
 });
