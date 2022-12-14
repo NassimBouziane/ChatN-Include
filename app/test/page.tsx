@@ -7,6 +7,7 @@ import Chat from './chat';
 import { getCookie } from 'typescript-cookie';
 import { Tab } from '@headlessui/react'
 
+
 const socket = io.connect('http://localhost:3001');
 function index() {
   const [username, setUsername] = useState();
@@ -35,7 +36,7 @@ function index() {
   return (
     <div className="App">
       {!showChat ? (
-        <div > {chatRooms && chatRooms.map((rooms) => <div> <button onClick={() => joinRoom(username,rooms.name, 2)} className='group'>{rooms.name}<div className='hidden group-focus:flex'>< Chat socket={socket} username={username} room={rooms.name}/></div></button> </div>
+        <div> {chatRooms && chatRooms.map((rooms) => <div> <button onClick={() => joinRoom(username,rooms.name, 2)} className='group'>{rooms.name}<div className='hidden group-focus:flex'>< Chat socket={socket} username={username} room={rooms.name}/></div></button> </div>
       )} </div>
       ) : (
         <Chat socket={socket} username={username} room={room} />

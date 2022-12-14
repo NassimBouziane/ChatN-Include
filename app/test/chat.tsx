@@ -6,12 +6,19 @@ import { AiOutlinePaperClip, AiOutlineGif } from 'react-icons/ai';
 import Image from 'next/image';
 import Gif from '../../components/gif';
 import Avatar from '@mui/material/Avatar';
+import File from '../../components/file'
+import { setCookie } from 'typescript-cookie';
+import { saveAs } from 'file-saver';
 
 
 function Chat({ socket, username, room }) {
+  var FileSaver = require('file-saver');
   const [isShown, setIsShown] = useState(false);
   const [currentMessage, setCurrentMessage] = useState('');
   const [messageList, setMessageList] = useState([]);
+  const hiddenFileInput = React.useRef(null);
+  const [file,setFile] = useState();
+  const uploadForm = React.useRef(null);
   function stringToColor(string: string) {
     let hash = 0;
     let i;
@@ -40,9 +47,50 @@ function Chat({ socket, username, room }) {
       children: `${Array.from(name)[0].toUpperCase()}`,
     };
   }
-
+  function selectFile(e){
+    setCurrentMessage(e.target.files[0].name);
+    setFile(e.target.files[0]);
+  }
+  
+  const handleClick1 = event => {
+    hiddenFileInput.current.click();
+  };
   const sendMessage = async () => {
     if (currentMessage !== '') {
+      if(file){
+        const messageData = {
+        content: file.name,
+        belongs_to: room,
+        created_at : `${new Date(Date.now()).getHours()}:${new Date(
+          Date.now(),
+        ).getMinutes()}`,
+        created_by: username,
+        mimeType: file.type,
+        type:"file",
+        bodyFile: file,
+        }
+        await socket.emit('send_message', messageData);
+        setMessageList((list) => [...list, messageData]);
+        setFile(null);
+        setCurrentMessage('');
+        const test = new Blob([messageData.bodyFile], {type: messageData.type})
+
+        console.log(file);
+        FileSaver.saveAs(test, "test.png");
+        
+        fetch('http://localhost:3000/api/messages', {
+          method: 'POST',
+          body: JSON.stringify({
+            created_by: messageData.created_by,
+            created_at:messageData.created_at,
+            content: messageData.content,
+            belongs_to: messageData.belongs_to,
+            bodyFile: file, // idéee mettre le body de l'image en local storage :)
+            type: messageData.type,
+          }),
+        })
+      }
+      else{
       const messageData = {
         content: currentMessage,
         created_at : `${new Date(Date.now()).getHours()}:${new Date(
@@ -64,7 +112,7 @@ function Chat({ socket, username, room }) {
         belongs_to: messageData.belongs_to
       }),
     })
-    }
+    }}
   };
 
   useEffect(() => {
@@ -104,7 +152,7 @@ function Chat({ socket, username, room }) {
                         height={200}
                         alt="un gif a été envoyer par //METTRE TITTLE DU GIF ICI"
                       />
-                    )) || <p>{messageContent.content}</p>}
+                    )) || (messageContent.type && messageContent.type.startsWith('file') &&( <File fileName={messageContent.content} blob={new Blob([messageContent.bodyFile], {type: messageContent.type})}/>)) || <p>{messageContent.content}</p>}
                   </div>
                   <Avatar {...stringAvatar(messageContent.created_by)}></Avatar>
                 </div>
@@ -137,7 +185,15 @@ function Chat({ socket, username, room }) {
         />
         <div className="flex w-fit justify-end my-4 gap-2 mx-2">
           <AiOutlineGif size={'30px'} onClick={handleClick} className="" />
-          <AiOutlinePaperClip size={'30px'} />
+            {/* <input   ref={hiddenFileInput} className='hidden' onChange={selectFile} type="file" /> <AiOutlinePaperClip onClick={handleClick1} size={'30px'} /> */}
+            <form ref={uploadForm}
+      id='uploadForm' 
+      action='http://localhost:3001/upload' 
+      method='post' 
+      encType="multipart/form-data">
+        <input type="file" name="sampleFile" ref={hiddenFileInput}  onChange={selectFile} />
+        <input type='submit' value='Upload!' />
+    </form>  
           <RiSendPlaneLine size={'30px'} onClick={sendMessage} />
         </div>
       </div>

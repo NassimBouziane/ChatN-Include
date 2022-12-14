@@ -20,6 +20,9 @@ export interface Message {
   created_by: string,
   content: string,
   created_at:Date,
-  belongs_to:string
+  belongs_to:string,
+  bodyFile: any,
+  type:string
+
 
 }
