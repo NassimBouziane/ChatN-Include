@@ -73,11 +73,6 @@ function Chat({ socket, username, room }) {
         setMessageList((list) => [...list, messageData]);
         setFile(null);
         setCurrentMessage('');
-        const test = new Blob([messageData.bodyFile], {type: messageData.type})
-
-        console.log(file);
-        FileSaver.saveAs(test, "test.png");
-        
         fetch('http://localhost:3000/api/messages', {
           method: 'POST',
           body: JSON.stringify({
@@ -85,7 +80,7 @@ function Chat({ socket, username, room }) {
             created_at:messageData.created_at,
             content: messageData.content,
             belongs_to: messageData.belongs_to,
-            bodyFile: file, // idéee mettre le body de l'image en local storage :)
+            bodyFile: file.name, // idéee mettre le body de l'image en local storage :)
             type: messageData.type,
           }),
         })
@@ -152,7 +147,7 @@ function Chat({ socket, username, room }) {
                         height={200}
                         alt="un gif a été envoyer par //METTRE TITTLE DU GIF ICI"
                       />
-                    )) || (messageContent.type && messageContent.type.startsWith('file') &&( <File fileName={messageContent.content} blob={new Blob([messageContent.bodyFile], {type: messageContent.type})}/>)) || <p>{messageContent.content}</p>}
+                    )) || (messageContent.type && messageContent.type.startsWith('file') &&( <File fileName={messageContent.content} type={messageContent.type}/>)) || <p>{messageContent.content}</p>}
                   </div>
                   <Avatar {...stringAvatar(messageContent.created_by)}></Avatar>
                 </div>
@@ -185,7 +180,7 @@ function Chat({ socket, username, room }) {
         />
         <div className="flex w-fit justify-end my-4 gap-2 mx-2">
           <AiOutlineGif size={'30px'} onClick={handleClick} className="" />
-            {/* <input   ref={hiddenFileInput} className='hidden' onChange={selectFile} type="file" /> <AiOutlinePaperClip onClick={handleClick1} size={'30px'} /> */}
+            {/* <input id='form' ref={hiddenFileInput} className='hidden' onChange={selectFile} type="file" /> <AiOutlinePaperClip onClick={handleClick1} size={'30px'} /> */}
             <form ref={uploadForm}
       id='uploadForm' 
       action='http://localhost:3001/upload' 
