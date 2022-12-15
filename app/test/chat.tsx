@@ -56,8 +56,7 @@ function Chat({ socket, username, room }) {
   };
   const sendMessage = async () => {
     if (currentMessage !== '') {
-      setTimeout(() => {
-      }, 2000);
+
       if(file){
         const messageData = {
         content: file.name,
@@ -127,10 +126,26 @@ function Chat({ socket, username, room }) {
     setIsShown(false);
   };
   function upload(){
-    const form = document.forms['uploadForm'];
-    form.submit();
+    // const form = document.forms['uploadForm'];
+    // form.submit();
     
+//     var formdata = new FormData();
+   
+//     var reader = new FileReader();
+// reader.readAsDataURL(hiddenFileInput.current.files[0]); 
+// reader.onloadend = function() {
+//   var base64data = reader.result;                
+//   formdata.append('sampleFile', hiddenFileInput.current.files[0]);
+//   fetch('http://localhost:3001/upload',{method:'POST', body: JSON.stringify({ img : hiddenFileInput.current.files[0]}) })
+//   console.log(formdata);
+// }
 
+
+const formData = new FormData();
+
+formData.append('sampleFile', hiddenFileInput.current.files[0]);
+
+fetch('http://localhost:3001/upload',{method:'POST', body: formData })
   }
   return (
     <div className="chat-window bg-white rounded-lg shadow-lg w-full  h-full">
