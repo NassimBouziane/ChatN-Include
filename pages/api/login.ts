@@ -36,7 +36,7 @@ export default async function handler(req, res) {
                   expiresIn: '24h',
                 },
               );
-              const result: Person = {token: acces, id: QueryResult.id}
+              const result: Person = {token: acces, id: QueryResult.id, group: QueryResult.group_id}
               return res.status(200).json(result);
             }
           });

@@ -15,6 +15,7 @@ export interface Login  {
 export interface Person {
   token : string,
   id : number
+  group : string
 }
 export interface Message {
   created_by: string,

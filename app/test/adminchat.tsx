@@ -83,7 +83,7 @@ function AdminChat({ socket, username, room }) {
     setIsShown(false);
   };
   return (
-    <div className="chat-window bg-white rounded-lg shadow-lg w-full  h-full">
+    <div className="chat-window bg-white rounded-lg shadow-lg w-full  h-full mt-2">
       {/* <div className="chat-header">
         <p>GROUPE {room}</p>
       </div> */}

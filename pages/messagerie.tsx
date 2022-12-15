@@ -19,12 +19,12 @@ export default function Messagerie() {
       <div className='flex w-full h-full'>
 
         <div className="flex w-full h-full">
-          <div className="w-40 h-full bg-green-500">
+          <div className="flex w-40 bg-green-500">
             <SideBar/>
           </div>
           
           <div className="flex justify-center w-full bg-gray-200 p-4">
-            <div className="flex w-full h-[100%] resize-none">
+            <div className="flex w-full h-screen">
               <Page />
             </div>
           </div>
