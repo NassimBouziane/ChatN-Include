@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { PrismaClient } from '@prisma/client';
+import { Getevent } from '../../../interfaces';
 
 const prisma = new PrismaClient();
 
@@ -12,14 +13,15 @@ export default async function handler(req, res) {
       break;
     }
     case 'POST': {
+      const data: Getevent = JSON.parse(req.body);
       const QueryResult = await prisma.events.create({
         data: {
-          title: req.body.title,
-          start: req.body.start,
-          end: req.body.end,
-          color: req.body.color,
-          z_index: req.body.z_index,
-          created_by: req.body.created_by,
+          title: data.title,
+          start: data.start,
+          end: data.end,
+          color: data.color,
+          content: data.content,
+          created_by: data.created_by,
         },
       });
       res.send('Event Created');

@@ -21,3 +21,14 @@ export interface Getuser {
   role_id: number,
   group_id: string
 }
+
+export interface Getevent {
+  id: number,
+  title: string,
+  start: string,
+  end: string,
+  color: string,
+  content: string,
+  created_by: number,
+  belong_to: string
+}

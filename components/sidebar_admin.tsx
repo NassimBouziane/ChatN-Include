@@ -3,6 +3,7 @@ import '../styles/input.css';
 import React from 'react';
 import { Tab } from '@headlessui/react';
 import UserPost from '../serviceAdmin/userservices';
+import EventPost from '../serviceAdmin/eventservice';
 
 export default function MyTabs() {
   return (
@@ -17,7 +18,7 @@ export default function MyTabs() {
       </Tab.List>
       <Tab.Panels className=" ml-[10%] font-xl">
         <Tab.Panel><UserPost/></Tab.Panel>
-        <Tab.Panel><UserPost/></Tab.Panel>
+        <Tab.Panel><EventPost/></Tab.Panel>
         <Tab.Panel><UserPost/></Tab.Panel>
       </Tab.Panels>
     </Tab.Group>

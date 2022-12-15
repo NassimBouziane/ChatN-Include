@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { PrismaClient } from '@prisma/client';
+import { Getevent } from '../../../interfaces';
 
 const prisma = new PrismaClient();
 
 export default async function handler(req, res) {
-  const pid: number = Number(req.query.id);
+  const pid: number = JSON.parse(req.query.id);
   switch (req.method) {
     case 'GET': {
       const QueryResult = await prisma.events.findUnique({
@@ -17,17 +18,18 @@ export default async function handler(req, res) {
       break;
     }
     case 'PUT': {
+      const data: Getevent = JSON.parse(req.body);
       const QueryResult = await prisma.events.update({
         where: {
           id: pid,
         },
         data: {
-          title: req.body.title,
-          start: req.body.start,
-          end: req.body.end,
-          color: req.body.color,
-          z_index: req.body.z_index,
-          created_by: req.body.created_by,
+          title: data.title,
+          start: data.start,
+          end: data.end,
+          color: data.color,
+          content: data.content,
+          created_by: data.created_by,
         },
       });
       res.send('Event Updated');
@@ -43,7 +45,7 @@ export default async function handler(req, res) {
       break;
     }
     default:
-      res.status(403).send();
+      res.status(403)
       break;
   }
 }

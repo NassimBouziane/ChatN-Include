@@ -1233,6 +1233,11 @@ video {
   background-color: #f3f3f3;
 }
 
+.boutton{
+  background-color: #a371D0;
+  color: white;
+}
+
 .invalid\:border-pink-500:invalid {
   --tw-border-opacity: 1;
   border-color: rgb(236 72 153 / var(--tw-border-opacity));

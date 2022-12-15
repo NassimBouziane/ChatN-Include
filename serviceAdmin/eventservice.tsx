@@ -2,123 +2,129 @@
 
 import '../styles/App.css';
 import { useEffect, useState, Fragment } from 'react';
-import { Getuser } from '../interfaces';
-import ReadOnlyRow from './components/ReadOnlyRow';
-import { EditableRow } from './components/EditableRow';
+import { ReadEventOnlyRow } from './components/ReadOnlyRow';
+import { EditEventableRow } from './components/EditableRow';
+import { Getevent } from '../interfaces';
 
-export default function UserPost() {
-  /* ADD User */
-  const [addUser, setAddUser] = useState({
-    username: '',
-    email: '',
-    password: '',
-    role_id: Number,
-    group_id: '',
+export default function EventPost() {
+  const [addEvent, setAddEvent] = useState({
+    title: '',
+    start: '',
+    end: '',
+    color: '',
+    content: '',
+    created_by: Number,
+    belong_to: '',
   });
 
-  /* Add user management */
-  const handleAdduser = (event) => {
+  const handleAddevent = (event) => {
     event.preventDefault();
 
     const fieldName = event.target.getAttribute('name');
     const fieldValue = event.target.value;
 
-    const newUser = { ...addUser };
-    newUser[fieldName] = fieldValue;
+    const newEvent = { ...addEvent };
+    newEvent[fieldName] = fieldValue;
 
-    setAddUser(newUser);
+    setAddEvent(newEvent);
   };
 
-  /* A function that is called when the user clicks the submit button on the add user form. */
-  const handleAddusersubmit = async (event) => {
+  const handleAddeventsubmit = async (event) => {
     event.preventDefault();
-    const user = await fetch('/api/users/', {
+    const Event = await fetch('/api/events/', {
       method: 'POST',
-      body: JSON.stringify(addUser),
+      body: JSON.stringify(addEvent),
     });
-    window.location.reload();
   };
 
-  /* This is a hook that is fetching the user from the database. */
-  const [users, setUsers] = useState(null);
+  const [events, setEvents] = useState(null);
   useEffect(() => {
-    const res = fetch('http://localhost:3000/api/users/')
+    const res = fetch('http://localhost:3000/api/events/')
       .then((response) => response.json())
       .then((data) => {
-        setUsers(data);
+        setEvents(data);
       });
   }, []);
 
-  const [edituserid, setEdituserid] = useState<Number>(null);
+  const [editeventid, setEditeventid] = useState<Number>(null);
 
-  const [editUser, setEditUser] = useState({
-    username: '',
-    email: '',
-    role_id: Number,
-    group_id: '',
+  const [editEvent, setEditEvent] = useState({
+    title: '',
+    start: '',
+    end: '',
+    color: '',
+    content: '',
+    created_by: Number,
+    belong_to: '',
   });
 
-  const handleEdituser = (event) => {
+  const handleEditevent = (event) => {
     event.preventDefault();
 
     const fieldName = event.target.getAttribute('name');
     const fieldValue = event.target.value;
 
-    const newdata = { ...editUser };
-    newdata[fieldName] = fieldValue;
+    const newEvent = { ...addEvent };
+    newEvent[fieldName] = fieldValue;
 
-    setEditUser(newdata);
+    setEditEvent(newEvent);
   };
 
-  const handleEditClick = (event, user: Getuser) => {
+  const handleEditClick = (event, Event: Getevent) => {
     event.preventDefault();
-    setEdituserid(user.id);
+    setEditeventid(Event.id);
 
     const formValues = {
-      username: user.username,
-      email: user.email,
-      role_id: user.role_id,
-      group_id: user.group_id,
+      title: Event.title,
+      start: Event.start,
+      end: Event.end,
+      color: Event.color,
+      content: Event.content,
+      created_by: Event.created_by,
+      belong_to: Event.belong_to,
     };
-    setEditUser(formValues);
+    setEditEvent(formValues);
   };
 
   const handleEditsubmit = async (event) => {
     event.preventDefault();
-    const user = await fetch(`/api/users/${edituserid}`, {
+    const Event = await fetch(`/api/events/${editeventid}`, {
       method: 'PUT',
       body: JSON.stringify({
-        username: editUser.username,
-        email: editUser.email,
-        role_id: editUser.role_id,
-        group_id: editUser.group_id,
+        title: editEvent.title,
+        start: editEvent.start,
+        end: editEvent.end,
+        color: editEvent.color,
+        content: editEvent.content,
+        created_by: editEvent.created_by,
+        belong_to: editEvent.belong_to,
       }),
     });
     window.location.reload();
   };
 
   const handleCancelClick = () => {
-    setEdituserid(null);
+    setEditeventid(null)
   };
 
-  const handleDeleteclick = async (event, user: Getuser) => {
+  const handleDeleteclick = async (event, Event: Getevent) => {
     event.preventDefault();
-    console.log(user.id);
+    console.log(Event.id);
 
-    const User = await fetch(`api/users/${user.id}`, {
+    const res = await fetch(`/api/events/${Event.id}`, {
       method: 'DELETE',
     });
   };
 
   return (
     <div className="app-container">
-      <h5>Add a User </h5>
-      <form onSubmit={handleAddusersubmit}>
-        <input
-          onChange={handleAdduser}
+      <h5>Add an Event </h5>
+      <form onSubmit={handleAddeventsubmit}>
+      <input
+          onChange={handleAddevent}
           type="text"
-          name="username"
-          placeholder="Enter a name"
+          name="title"
+          placeholder="Enter a title"
           className="mt-1 flex px-3 py-2 bg-white border border-slate-300text-sm shadow-sm placeholder-slate-400
                           focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500
                           disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none
@@ -126,32 +132,10 @@ export default function UserPost() {
                           focus:invalid:border-pink-500 focus:invalid:ring-pink-500 "
         ></input>
         <input
-          onChange={handleAdduser}
-          type="email"
-          name="email"
-          placeholder="Enter an email"
-          className="mt-1 flex justify-center  px-3 py-2 bg-white border border-slate-300text-sm shadow-sm placeholder-slate-400
-                          focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500
-                          disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none
-                          invalid:border-pink-500 invalid:text-pink-600
-                          focus:invalid:border-pink-500 focus:invalid:ring-pink-500 "
-        ></input>
-        <input
-          onChange={handleAdduser}
-          type="password"
-          name="password"
-          placeholder="Enter a password"
-          className="mt-1 flex justify-center  px-3 py-2 bg-white border border-slate-300text-sm shadow-sm placeholder-slate-400
-                          focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500
-                          disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none
-                          invalid:border-pink-500 invalid:text-pink-600
-                          focus:invalid:border-pink-500 focus:invalid:ring-pink-500 "
-        ></input>
-        <input
-          onChange={handleAdduser}
+          onChange={handleAddevent}
           type="text"
-          name="role_id"
-          placeholder="Enter a role"
+          name="start"
+          placeholder="Enter an start"
           className="mt-1 flex justify-center  px-3 py-2 bg-white border border-slate-300text-sm shadow-sm placeholder-slate-400
                           focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500
                           disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none
@@ -159,10 +143,54 @@ export default function UserPost() {
                           focus:invalid:border-pink-500 focus:invalid:ring-pink-500 "
         ></input>
         <input
-          onChange={handleAdduser}
+          onChange={handleAddevent}
           type="text"
-          name="group_id"
-          placeholder="Enter a group"
+          name="end"
+          placeholder="Enter a end"
+          className="mt-1 flex justify-center  px-3 py-2 bg-white border border-slate-300text-sm shadow-sm placeholder-slate-400
+                          focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500
+                          disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none
+                          invalid:border-pink-500 invalid:text-pink-600
+                          focus:invalid:border-pink-500 focus:invalid:ring-pink-500 "
+        ></input>
+        <input
+          onChange={handleAddevent}
+          type="text"
+          name="color"
+          placeholder="Enter a color"
+          className="mt-1 flex justify-center  px-3 py-2 bg-white border border-slate-300text-sm shadow-sm placeholder-slate-400
+                          focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500
+                          disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none
+                          invalid:border-pink-500 invalid:text-pink-600
+                          focus:invalid:border-pink-500 focus:invalid:ring-pink-500 "
+        ></input>
+        <input
+          onChange={handleAddevent}
+          type="text"
+          name="content"
+          placeholder="Enter a content"
+          className="mt-1 flex justify-center  px-3 py-2 bg-white border border-slate-300text-sm shadow-sm placeholder-slate-400
+                          focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500
+                          disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none
+                          invalid:border-pink-500 invalid:text-pink-600
+                          focus:invalid:border-pink-500 focus:invalid:ring-pink-500 "
+        ></input>
+        <input
+          onChange={handleAddevent}
+          type="text"
+          name="created_by"
+          placeholder="Enter a created by"
+          className="mt-1 flex justify-center  px-3 py-2 bg-white border border-slate-300text-sm shadow-sm placeholder-slate-400
+                          focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500
+                          disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none
+                          invalid:border-pink-500 invalid:text-pink-600
+                          focus:invalid:border-pink-500 focus:invalid:ring-pink-500 "
+        ></input>
+        <input
+          onChange={handleAddevent}
+          type="text"
+          name="belong_to"
+          placeholder="Enter a belong to"
           className="mt-1 flex justify-center  px-3 py-2 bg-white border border-slate-300text-sm shadow-sm placeholder-slate-400
                           focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500
                           disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none
@@ -180,27 +208,30 @@ export default function UserPost() {
         <table>
           <thead>
             <tr>
-              <th>username</th>
-              <th>email</th>
-              <th>role_id</th>
-              <th>group_id</th>
+              <th>title</th>
+              <th>start</th>
+              <th>end</th>
+              <th>color</th>
+              <th>content</th>
+              <th>created by</th>
+              <th>belong to</th>
               <th>Actions</th>
             </tr>
           </thead>
           <tbody>
-            {users
-              && users.map((user: Getuser, i: any) => (
+            {events
+              && events.map((Event: Getevent, i: any) => (
                 <>
                   <Fragment>
-                    {edituserid === user.id ? (
-                      <EditableRow
-                        editUser={editUser}
-                        handleEdituser={handleEdituser}
+                    {editeventid === Event.id ? (
+                      <EditEventableRow
+                        editEvent={editEvent}
+                        handleEditevent={handleEditevent}
                         handleCancelClick={handleCancelClick}
                       />
                     ) : (
-                      <ReadOnlyRow
-                        user={user}
+                      <ReadEventOnlyRow
+                        Event={Event}
                         handleEditClick={handleEditClick}
                         handleDeleteclick={handleDeleteclick}
                       />
@@ -212,5 +243,5 @@ export default function UserPost() {
         </table>
       </form>
     </div>
-  );
+  )
 }

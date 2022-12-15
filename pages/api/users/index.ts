@@ -15,7 +15,6 @@ export default async function handler(req, res) {
 
     // Create new user
     case 'POST': {
-      // const test = Number(req.body.role_id);
       const data: Getuser = JSON.parse(req.body);
       try {
         const hash = await bcrypt.hash(data.password, 10);
