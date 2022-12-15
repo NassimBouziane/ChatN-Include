@@ -2,7 +2,7 @@
 import '../styles/input.css';
 import React from 'react';
 import { Tab } from '@headlessui/react';
-import UserPost from '../CRUD/CrudUser';
+import UserPost from '../serviceAdmin/userservices';
 
 export default function MyTabs() {
   return (
@@ -16,9 +16,9 @@ export default function MyTabs() {
         <Tab className="w-full h-12 focus:bg-[#ADB6FA] focus:border-l-4 focus:border-[#A371D0]">Groups</Tab>
       </Tab.List>
       <Tab.Panels className=" ml-[10%] font-xl">
-        <Tab.Panel>{UserPost}</Tab.Panel>
-        <Tab.Panel>Content 2</Tab.Panel>
-        <Tab.Panel>Content 3</Tab.Panel>
+        <Tab.Panel><UserPost/></Tab.Panel>
+        <Tab.Panel><UserPost/></Tab.Panel>
+        <Tab.Panel><UserPost/></Tab.Panel>
       </Tab.Panels>
     </Tab.Group>
     </div>

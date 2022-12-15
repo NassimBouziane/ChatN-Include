@@ -1,10 +1,13 @@
 'use client';
 
 import '../styles/App.css';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, Fragment } from 'react';
 import { Getuser } from '../interfaces';
+import ReadOnlyRow from './components/ReadOnlyRow';
+import EditableRow from './components/EditableRow';
 
 export default function UserPost() {
+  /* ADD User */
   const [addUser, setAddUser] = useState({
     username: '',
     email: '',
@@ -13,6 +16,7 @@ export default function UserPost() {
     group_id: '',
   });
 
+  /* Add user management */
   const handleAdduser = (event) => {
     event.preventDefault();
 
@@ -25,6 +29,7 @@ export default function UserPost() {
     setAddUser(newUser);
   };
 
+  /* A function that is called when the user clicks the submit button on the add user form. */
   const handleAddusersubmit = async (event) => {
     event.preventDefault();
     const user = await fetch('/api/users/', {
@@ -33,15 +38,67 @@ export default function UserPost() {
     });
   };
 
-  const [user, setUser] = useState(null);
+  /* This is a hook that is fetching the user from the database. */
+  const [users, setUsers] = useState(null);
   useEffect(() => {
     const res = fetch('http://localhost:3000/api/users/')
       .then((response) => response.json())
       .then((data) => {
-        // console.log(data);
-        setUser(data);
+        setUsers(data);
       });
   }, []);
+
+  const [edituserid, setEdituserid] = useState<Number>(null);
+
+  const [editUser, setEditUser] = useState({
+    username: '',
+    email: '',
+    role_id: Number,
+    group_id: '',
+  });
+
+  const handleEdituser = (event) => {
+    event.preventDefault();
+
+    const fieldName = event.target.getAttribute('name');
+    const fieldValue = event.target.value;
+
+    const newdata = { ...editUser };
+    newdata[fieldName] = fieldValue;
+
+    setEditUser(newdata);
+  };
+
+  const handleEditClick = (event, user: Getuser) => {
+    event.preventDefault();
+    setEdituserid(user.id);
+
+    const formValues = {
+      username: user.username,
+      email: user.email,
+      role_id: user.role_id,
+      group_id: user.group_id,
+    };
+    setEditUser(formValues);
+  };
+
+  const handleEditsubmit = async (event) => {
+    event.preventDefault();
+    const user = await fetch(`api/users/${edituserid}`, {
+      method: 'PUT',
+      body: JSON.stringify({
+        // id: edituserid,
+        username: editUser.username,
+        email: editUser.email,
+        role_id: editUser.role_id,
+        group_id: editUser.group_id,
+      }),
+    });
+  };
+
+  const handleCancelClick = () => {
+    setEdituserid(null);
+  };
 
   return (
     <div className="app-container">
@@ -109,32 +166,40 @@ export default function UserPost() {
           Add
         </button>
       </form>
-      <table>
-        <thead>
-          <tr>
-            <th>id</th>
-            <th>username</th>
-            <th>email</th>
-
-            <th>role_id</th>
-            <th>group_id</th>
-          </tr>
-        </thead>
-        <tbody>
-          {user
-            && user.map((user: Getuser, i: any) => (
-              <>
-                <tr>
-                  <td>{user.id}</td>
-                  <td>{user.username}</td>
-                  <td>{user.email}</td>
-                  <td>{user.role_id}</td>
-                  <td>{user.group_id}</td>
-                </tr>
-              </>
-            ))}
-        </tbody>
-      </table>
+      <form onSubmit={handleEditsubmit}>
+        <table>
+          <thead>
+            <tr>
+              <th>username</th>
+              <th>email</th>
+              <th>role_id</th>
+              <th>group_id</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {users
+              && users.map((user: Getuser, i: any) => (
+                <>
+                  <Fragment>
+                    {edituserid === user.id ? (
+                      <EditableRow
+                        editUser={editUser}
+                        handleEdituser={handleEdituser}
+                        handleCancelClick={handleCancelClick}
+                      />
+                    ) : (
+                      <ReadOnlyRow
+                        user={user}
+                        handleEditClick={handleEditClick}
+                      />
+                    )}
+                  </Fragment>
+                </>
+              ))}
+          </tbody>
+        </table>
+      </form>
     </div>
   );
 }

@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { PrismaClient } from '@prisma/client';
+import { Getuser } from '../../../interfaces';
 
 const prisma = new PrismaClient();
 
 export default async function handler(req, res) {
-  const Id = Number(req.query.id);
+  const Id: number = JSON.parse(req.query.id);
   switch (req.method) {
     // Delete user
 
@@ -20,16 +21,17 @@ export default async function handler(req, res) {
 
     // Update user
     case 'PUT': {
+      const data: Getuser = JSON.parse(req.body);
       const QueryResult = await prisma.users.update({
         where: {
           id: Id,
         },
         data: {
-          username: req.body.username,
-          email: req.body.email,
-          password: req.body.password,
-          role_id: req.body.role_id,
-          group_id: req.body.group_id,
+          username: data.username,
+          email: data.email,
+          password: data.password,
+          role_id: data.role_id,
+          group_id: data.group_id,
         },
       });
       res.send(QueryResult);
