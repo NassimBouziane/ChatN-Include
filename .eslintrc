@@ -12,6 +12,7 @@
         "no-console": "off",
         "no-restricted-syntax": "off",
         "no-param-reassign": "off",
-        "max-len": "off"
+        "max-len": "off",
+        "linebreak-style": "off"
     }
 }
