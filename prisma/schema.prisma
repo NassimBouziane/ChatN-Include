@@ -1,12 +1,25 @@
+// Code Camp Web SDCDWEB
+//
+// Created on Thu Dec 15 2022
+// 
+// @authors: Menut Paul, Bouziane Nassim, Fom Nenkam Samuella, Hoarau Jordan, Boustani Abdelqodousse
+//
+// Copyright (c) 2022 - ETNA
+//
+
+
+// Generating a client for the prisma server.
 generator client {
   provider = "prisma-client-js"
 }
 
+// Connecting to the database.
 datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
 
+// This is the schema of the events table.
 model events {
   id         Int     @id @default(autoincrement())
   title      String  @db.VarChar(50)
@@ -19,17 +32,23 @@ model events {
   belong_to  String  @default("") @db.VarChar(50)
 }
 
+// This is the schema of the group table.
 model groups {
   id   Int    @id @default(autoincrement())
   name String @db.VarChar(50)
 }
 
+// This is the schema of the label table.
+// although i think this one is deprecated and isn't used anymore
 model label {
   id    Int    @id @default(autoincrement())
   name  String @db.VarChar(50)
   color String @db.VarChar(50)
 }
 
+// This is the schema of the messages table.
+// Used in addition to sockets to bring persistency to the messages
+// allowing the best of both world instant and persitent chat 
 model messages {
   id         Int     @id @default(autoincrement())
   content    String  @db.Text
@@ -40,11 +59,13 @@ model messages {
   bodyFile   String? @db.LongText
 }
 
+// This is the schema of the roles table.
 model roles {
   id   Int    @id @default(autoincrement())
   name String @db.VarChar(50)
 }
 
+// This is the schema of the used table.
 model users {
   id       Int     @id @default(autoincrement())
   username String  @db.VarChar(50)
