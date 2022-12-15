@@ -7,6 +7,8 @@ import '../styles/output.css';
 import { useEffect, useState } from 'react';
 import { getCookie } from 'typescript-cookie';
 import Button01 from '../components/button_01';
+import { Notifications } from 'react-push-notification';
+
 
 export default function Page() {
   const [link, setLink] = useState('');
