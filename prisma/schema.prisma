@@ -16,6 +16,7 @@ model events {
   content    String? @db.Text
   z_index    Int?
   created_by Int
+  belong_to  String  @default("") @db.VarChar(50)
 }
 
 model groups {
@@ -30,10 +31,13 @@ model label {
 }
 
 model messages {
-  id         Int      @id @default(autoincrement())
-  content    String   @db.Text
-  created_at DateTime @default(now()) @map("created at") @db.Timestamp(0)
-  created_by String   @map("created by") @db.VarChar(50)
+  id         Int     @id @default(autoincrement())
+  content    String  @db.Text
+  created_at String  @map("created at") @db.VarChar(50)
+  created_by String  @map("created by") @db.VarChar(50)
+  belongs_to String  @db.VarChar(50)
+  type       String? @db.VarChar(50)
+  bodyFile   String? @db.LongText
 }
 
 model roles {

@@ -1,9 +1,11 @@
 /* eslint-disable import/extensions */
 
 'use client';
+'use client';
 
 import '../styles/output.css';
 import { useEffect, useState } from 'react';
+import { getCookie } from 'typescript-cookie';
 import Button01 from '../components/button_01';
 
 export default function Page() {
@@ -11,6 +13,13 @@ export default function Page() {
   useEffect(() => {
     setLink('../login');
     document.title = 'INCLU\'CHAT';
+    if (getCookie('token')) {
+      setLink('../messagerie');
+    } else {
+      setLink('../login');
+    }
+
+    document.title = "INCLU'CHAT";
   }, []);
   return (
     <div className="bg-white w-full h-screen grid grid-cols-2 gap-1 ">

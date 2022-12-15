@@ -4,30 +4,32 @@
 import { useRef, useEffect } from 'react';
 import { setCookie, getCookie } from 'typescript-cookie';
 import Button02 from '../../components/button_02';
+import { Person } from '../../interfaces';
 
 export default function login() {
   const email = useRef(null);
   const password = useRef(null);
 
   async function getData() {
-    console.log('test');
-    const res = await fetch('http://localhost:3000/api/login', {
+    const res:Person = await fetch('http://localhost:3000/api/login', {
       method: 'POST',
       body: JSON.stringify({
         email: email.current.value,
         password: password.current.value,
       }),
     }).then((res) => res.json());
-    await setCookie('token', res);
+    await setCookie('token', res.token);
+    await setCookie('id', res.id)
+    await setCookie('group', res.group)
     if (getCookie('token')) {
       document.location = '/messagerie';
     }
   }
-  useEffect(() => { window.location.reload; }, []);
+  useEffect(() => { window.location.reload;}, []);
   return (
     <div className="grid grid-rows-3 gap-1">
       <div></div>
-      <form onSubmit={getData} className="grid grid-rows-4 gap-2">
+      <form method="post" onSubmit={getData} className="grid grid-rows-4 gap-2">
         <p></p>
         <div>
           <label htmlFor="name" className="flex justify-center mt-2">
@@ -37,6 +39,7 @@ export default function login() {
         <div className="flex justify-center">
           <input
             ref={email}
+            onChange={getData}
             type="email"
             id="email"
             name="email"

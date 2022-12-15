@@ -1,8 +1,10 @@
 /* eslint-disable class-methods-use-this */
-import React, { Component } from 'react';
-import '../styles/output.css';
-import FullCalendar from '@fullcalendar/react'; // must go before plugins
-import timeGridPlugin from '@fullcalendar/timegrid';
+import React, { Component } from "react";
+import "../styles/output.css";
+import FullCalendar from "@fullcalendar/react"; // must go before plugins
+import timeGridPlugin from "@fullcalendar/timegrid";
+import SideBar from "../components/sidebar";
+import { getCookie } from "typescript-cookie";
 
 function renderEventContent(eventInfo) {
   return (
@@ -34,7 +36,7 @@ export default class App extends Component {
 
   componentDidMount() {
     // fetch events here
-    fetch('http://localhost:3000/api/events')
+    fetch(`http://localhost:3000/api/events/group/${getCookie('group')}`)
       .then((response) => response.json())
       .then((events) => {
         this.setState({
@@ -47,26 +49,23 @@ export default class App extends Component {
   render() {
     return (
       <>
-        <div className="flex w-full h-full">
-          <div className="w-40 h-full bg-green-500">sidebar</div>
-          <div className="w-1/5 h-full bg-red-500 grid grid-cols-1">
-            message overview
-          </div>
-          <div className="w-3/4 h-full bg-gray-200">
-            <div className="rounded-lg bg-white shadow-2xl m-2">
-              <FullCalendar
-                plugins={[timeGridPlugin]}
-                nowIndicator={true}
-                initialView="timeGridWeek"
-                headerToolbar={{
-                  start: 'today',
-                  center: 'title',
-                  end: 'prev,next',
-                }}
-                events={this.state.events}
-                eventContent={renderEventContent}
-                eventClick={renderEventOnClick}
-              />
+        <div className="flex w-full h-full bg-[#f3f3f3]">
+          <div className="flex w-full h-full">
+            <div className="w-40 h-full bg-[#f3f3f3]">
+              <SideBar />
+            </div>
+
+            <div className="w-full bg-gray-200 p-4">
+              <div className=" w-full">
+                <FullCalendar
+                  plugins={[timeGridPlugin]}
+                  nowIndicator={true}
+                  initialView="timeGridWeek"
+                  events={this.state.events}
+                  eventContent={renderEventContent}
+                />
+                ;
+              </div>
             </div>
           </div>
         </div>

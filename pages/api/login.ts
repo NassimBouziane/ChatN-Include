@@ -1,6 +1,6 @@
 import * as dotenv from 'dotenv';
 import { PrismaClient } from '@prisma/client';
-import {Login} from '../../interfaces/index'
+import { Login, Person } from '../../interfaces/index';
 
 dotenv.config();
 
@@ -12,12 +12,13 @@ export default async function handler(req, res) {
   switch (req.method) {
     // Login user
     case 'POST': {
+      const body:Login = JSON.parse(req.body);
+
       const QueryResult = await prisma.users.findFirst({
         where: {
-          email: req.body.email,
+          email: body.email,
         },
       });
-      const body:Login = JSON.parse(req.body)
       if (QueryResult) {
         bcrypt
           .compare(body.password, QueryResult.password)
@@ -35,7 +36,8 @@ export default async function handler(req, res) {
                   expiresIn: '24h',
                 },
               );
-              return res.status(200).json(acces);
+              const result: Person = {token: acces, id: QueryResult.id, group: QueryResult.group_id}
+              return res.status(200).json(result);
             }
           });
       } else {

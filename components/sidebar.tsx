@@ -6,12 +6,12 @@ import SideBarIcon from './sidebar_Icon';
 
 export default function SideBar() {
   return (
-        <div className="fixed top-0 left-0 h-screen w-16 m-0
-                        flex flex-col justify-center
-                        bg-[#f3f3f3] text-white shadow-lg">
+        <div className="w-full
+                        flex flex-col
+                        bg-[#f3f3f3] text-white border-r-2 z-10">
 
             <SideBarIcon icon={<FiMail size="28"/>}text='Mail'/>
-            <SideBarIcon icon={<BiChat size="28"/>}text='Chat'/>
-            <SideBarIcon icon={<IoCalendarNumberOutline size="28"/>}text='Calendar'/>
+            <a href="/messagerie"><SideBarIcon icon={<BiChat size="28"/>}text='Chat'/></a>
+            <a href="/calendar"><SideBarIcon icon={<IoCalendarNumberOutline size="28"/>}text='Calendar'/></a>
         </div>);
 }

@@ -1,5 +1,6 @@
 import { PrismaClient } from '@prisma/client';
-
+import message from '../../../components/message';
+import { Message } from '../../../interfaces';
 const prisma = new PrismaClient();
 
 export default async function handler(req, res) {
@@ -9,10 +10,15 @@ export default async function handler(req, res) {
       res.send(QueryResult);
       break; }
     case 'POST': {
+      const body:Message = JSON.parse(req.body)
       const QueryResult = await prisma.messages.create({
         data: {
-          created_by: req.body.created_by,
-          content: req.body.content,
+          created_by:body.created_by,
+          content: body.content,
+          created_at: body.created_at,
+          belongs_to: body.belongs_to,
+          bodyFile: body.bodyFile,
+          type: body.type
         },
       });
       res.send(QueryResult);
