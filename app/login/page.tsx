@@ -20,6 +20,7 @@ export default function login() {
     }).then((res) => res.json());
     await setCookie('token', res.token);
     await setCookie('id', res.id)
+    await setCookie('group', res.group)
     if (getCookie('token')) {
       document.location = '/messagerie';
     }

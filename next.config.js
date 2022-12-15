@@ -13,6 +13,7 @@ module.exports = {
         'media6.giphy.com',
         'media7.giphy.com',
         'media8.giphy.com',
+        'media.tenor.com',
 
       ],
     },

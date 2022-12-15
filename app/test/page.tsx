@@ -39,21 +39,21 @@ function index() {
       });
   }, []);
   return (
-    <div className="App">
+    <div className="flex App align-center w-full">
       {!showChat ? (
-        <div className="bg-red-200 grid grid-flow-col-dense">
+        <div className="flex align-center w-full rounded-lg shadow-2xl bg-gray-100 p-4">
           {" "}
           {chatRooms &&
             chatRooms.map((rooms) => (
-              <div className="group w-full">
+              <div className="group w-full focus:grow">
                 {" "}
                 <button
                   onClick={() => joinRoom(username, rooms.name, 2)}
-                  className=""
+                  className="bg-gradient-to-r from-[#FD9262] via-[#e31988] to-[#A371D0] flex text-center rounded-full  w-6/12 h-fit px-[24px] py-[12px] hover:from-[#fd9362af] hover:via-[#fc1ba6b0] hover:to-[#a471d0bc] hover:brightness-75 text-[15px] font-sans text-white justify-center"
                 >
                   {rooms.name}
                 </button>{" "}
-                <div className="hidden w-full group-focus:flex group-focus-within:flex">
+                <div className="hidden w-full group-focus-within:flex">
                   <AdminChat socket={socket} username={username} room={rooms.name} />
                 </div>
               </div>
