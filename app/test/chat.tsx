@@ -12,7 +12,6 @@ import { saveAs } from 'file-saver';
 
 
 function Chat({ socket, username, room }) {
-  var FileSaver = require('file-saver');
   const [isShown, setIsShown] = useState(false);
   const [currentMessage, setCurrentMessage] = useState('');
   const [messageList, setMessageList] = useState([]);
@@ -58,7 +57,6 @@ function Chat({ socket, username, room }) {
   const sendMessage = async () => {
     if (currentMessage !== '') {
       setTimeout(() => {
-        console.log('Hello, World!')
       }, 2000);
       if(file){
         const messageData = {
@@ -131,6 +129,8 @@ function Chat({ socket, username, room }) {
   function upload(){
     const form = document.forms['uploadForm'];
     form.submit();
+    
+
   }
   return (
     <div className="chat-window bg-white rounded-lg shadow-lg w-full  h-full">
@@ -196,11 +196,10 @@ function Chat({ socket, username, room }) {
         <input className='hidden' type="file" name="sampleFile" ref={hiddenFileInput}  onChange={(event) => {upload(), selectFile(event)}} />
         <AiOutlinePaperClip ref={hiddenFileInput} onChange={selectFile} onClick={handleClick1} size={'30px'} />
     </form>  
-          <RiSendPlaneLine size={'30px'} onClick={sendMessage} />
+          <RiSendPlaneLine size={'30px'} onClick={sendMessage} /> 
         </div>
       </div>
     </div>
   );
 }
-
 export default Chat;

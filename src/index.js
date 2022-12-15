@@ -5,29 +5,30 @@ const cors = require("cors");
 const { Server } = require("socket.io");
 const fileUpload = require('express-fileupload');
 app.use(cors());
+const bodyParser = require('body-parser')
 
 const server = http.createServer(app);
 app.use(fileUpload());
-
-app.post('/upload', function(req, res) {
+app.use(bodyParser.json({extended : true}))
+const urlencodedParser = bodyParser.urlencoded({extended: true})
+app.post('/upload', urlencodedParser ,function(req, res) {
   let sampleFile;
   let uploadPath;
 
-  if (!req.files || Object.keys(req.files).length === 0) {
+  if (!req.files || Object.keys(req.files).length === 0) { 
     return res.status(400)
   }
-
   // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
   sampleFile = req.files.sampleFile;
   uploadPath =  'src/public/' + sampleFile.name;
+ 
 
   // Use the mv() method to place the file somewhere on your server
   sampleFile.mv(uploadPath, function(err) {
     if (err) 
       return res.status(500).send(err);
       else
-      res.status(200)
-      
+      res.status(200);
   });
 });
 
