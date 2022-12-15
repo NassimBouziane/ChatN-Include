@@ -40,11 +40,11 @@ export default class App extends Component {
       <>
         <div className="flex w-full h-full bg-[#f3f3f3]">
           <div className="flex w-full h-full">
-            <div className="w-40 h-full bg-[#f3f3f3]">
+            <div className="w-40 h-full">
               <SideBar />
             </div>
 
-            <div className="w-full bg-gray-200 p-4">
+            <div className="bg-white rounded-lg shadow-lg w-full  h-full m-5">
               <div className=" w-full">
                 <FullCalendar
                   plugins={[timeGridPlugin]}
@@ -53,7 +53,7 @@ export default class App extends Component {
                   events={this.state.events}
                   eventContent={renderEventContent}
                 />
-                ;
+                
               </div>
             </div>
           </div>
