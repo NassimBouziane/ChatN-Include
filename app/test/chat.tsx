@@ -7,8 +7,8 @@ import Image from 'next/image';
 import Gif from '../../components/gif';
 import Avatar from '@mui/material/Avatar';
 import File from '../../components/file'
-import addNotification from 'react-push-notification';
-import { Notifications } from 'react-push-notification';
+
+
 
 
 
@@ -113,14 +113,14 @@ function Chat({ socket, username, room }) {
 
   useEffect(() => {
     socket.on('receive_message', (data) => {
-      addNotification({
-        title: 'Nouveaux message',
-        subtitle: 'This is a subtitle',
-        message: data.content,
-        theme: 'darkblue',
-        native: true,
-    });
-
+      Notification.requestPermission().then(perm =>{
+        if(perm ==="granted"){
+    if(document.hidden){
+          new Notification('Nouveau message recu'),{body:`${data.content}`,
+        tag:"Message Notification", image: "inclukathonlogo"}
+        }}
+    
+      })
       setMessageList((list) => [...list, data]);
     });
     const res = fetch(`http://localhost:3000/api/messages/${room}`, {
@@ -141,17 +141,11 @@ formData.append('sampleFile', hiddenFileInput.current.files[0]);
 
 fetch('http://localhost:3001/upload',{method:'POST', body: formData })
   }
-  function test32(){
-    console.log('test');
-  }
+
   return (
     <div className="chat-window bg-white rounded-lg shadow-lg w-full  h-full">
-      {/* <div className="chat-header">
-        <p>GROUPE {room}</p>
-      </div> */}
       <div className="chat-body rounded-lg">
         <ScrollToBottom className="message-container pt-4">
-          <Notifications/>
           {messageList.map((messageContent) => ( 
             <div
               className="message"
@@ -209,7 +203,7 @@ fetch('http://localhost:3001/upload',{method:'POST', body: formData })
         <input className='hidden' type="file" name="sampleFile" ref={hiddenFileInput}  onChange={(event) => {upload(), selectFile(event)}} />
         <AiOutlinePaperClip ref={hiddenFileInput} onChange={selectFile} onClick={handleClick1} size={'30px'} />
     </form>  
-          <RiSendPlaneLine size={'30px'} onClick={() => {sendMessage(), test32()}} /> 
+          <RiSendPlaneLine size={'30px'} onClick={() => {sendMessage()}} /> 
         </div>
       </div>
     </div>
