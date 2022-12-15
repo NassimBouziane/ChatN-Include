@@ -23,7 +23,6 @@ function Chat({ socket, username, room }) {
     let hash = 0;
     let i;
   
-    /* eslint-disable no-bitwise */
     for (i = 0; i < string.length; i += 1) {
       hash = string.charCodeAt(i) + ((hash << 5) - hash);
     }
@@ -34,7 +33,6 @@ function Chat({ socket, username, room }) {
       const value = (hash >> (i * 8)) & 0xff;
       color += `00${value.toString(16)}`.slice(-2);
     }
-    /* eslint-enable no-bitwise */
   
     return color;
   }
@@ -81,7 +79,7 @@ function Chat({ socket, username, room }) {
             created_at:messageData.created_at,
             content: messageData.content,
             belongs_to: messageData.belongs_to,
-            bodyFile: file.name, // idéee mettre le body de l'image en local storage :)
+            bodyFile: file.name,
             type: messageData.type,
           }),
         })
@@ -115,7 +113,9 @@ function Chat({ socket, username, room }) {
     socket.on('receive_message', (data) => {
       Notification.requestPermission().then(perm =>{
         if(perm ==="granted"){
+          
     if(document.hidden){
+      
           new Notification('Nouveau message recu'),{body:`${data.content}`,
         tag:"Message Notification", image: "inclukathonlogo"}
         }}

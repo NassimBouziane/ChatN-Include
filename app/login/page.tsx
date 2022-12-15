@@ -39,7 +39,7 @@ export default function login() {
         <div className="flex justify-center">
           <input
             ref={email}
-            onChange={getData}
+
             type="email"
             id="email"
             name="email"
