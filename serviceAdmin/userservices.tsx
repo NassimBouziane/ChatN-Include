@@ -105,7 +105,7 @@ export default function UserPost() {
     event.preventDefault();
     console.log(user.id);
 
-    const User = await fetch(`api/users/${user.id}`, {
+    const User = await fetch(`/api/users/${user.id}`, {
       method: 'DELETE',
     });
   };

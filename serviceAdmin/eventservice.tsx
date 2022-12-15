@@ -35,6 +35,7 @@ export default function EventPost() {
       method: 'POST',
       body: JSON.stringify(addEvent),
     });
+    window.location.reload();
   };
 
   const [events, setEvents] = useState(null);
