@@ -1,10 +1,10 @@
 /* eslint-disable class-methods-use-this */
-import React, { Component } from "react";
-import "../styles/output.css";
-import FullCalendar from "@fullcalendar/react"; // must go before plugins
-import timeGridPlugin from "@fullcalendar/timegrid";
-import SideBar from "../components/sidebar";
-import { getCookie } from "typescript-cookie";
+import React, { Component } from 'react';
+import '../styles/output.css';
+import FullCalendar from '@fullcalendar/react'; // must go before plugins
+import timeGridPlugin from '@fullcalendar/timegrid';
+import { getCookie } from 'typescript-cookie';
+import SideBar from '../components/sidebar';
 
 function renderEventContent(eventInfo) {
   return (
@@ -25,14 +25,25 @@ export default class App extends Component {
 
   componentDidMount() {
     // fetch events here
-    fetch(`http://localhost:3000/api/events/group/${getCookie('group')}`)
-      .then((response) => response.json())
-      .then((events) => {
-        this.setState({
-          events,
-        });
-      })
-      .catch((error) => console.log(error));
+    if (getCookie('group') === 'admin') {
+      fetch('http://localhost:3000/api/events')
+        .then((response) => response.json())
+        .then((events) => {
+          this.setState({
+            events,
+          });
+        })
+        .catch((error) => console.log(error));
+    } else {
+      fetch(`http://localhost:3000/api/events/group/${getCookie('group')}`)
+        .then((response) => response.json())
+        .then((events) => {
+          this.setState({
+            events,
+          });
+        })
+        .catch((error) => console.log(error));
+    }
   }
 
   render() {
