@@ -37,6 +37,7 @@
     "moment-timezone": "^0.5.39",
     "next": "^13.0.6",
     "planby": "^1.1.2",
+    "prisma-erd-generator": "^1.2.4",
     "react": "^18.2.0",
     "react-big-calendar": "^1.5.2",
     "react-dom": "^18.2.0",
