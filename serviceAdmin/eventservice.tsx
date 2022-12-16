@@ -7,6 +7,7 @@ import { EditEventableRow } from './components/EditableRow';
 import { Getevent } from '../interfaces';
 
 export default function EventPost() {
+  /* Setting the state of the addEvent to an empty object. */
   const [addEvent, setAddEvent] = useState({
     title: '',
     start: '',
@@ -17,6 +18,11 @@ export default function EventPost() {
     belong_to: '',
   });
 
+  /**
+   * The function takes an event as an argument, prevents the default action, gets the name and value
+   * of the field, creates a new event object, and sets the state of the new event object
+   * @param event - the event object that is passed to the function
+   */
   const handleAddevent = (event) => {
     event.preventDefault();
 
@@ -29,6 +35,12 @@ export default function EventPost() {
     setAddEvent(newEvent);
   };
 
+  /**
+   * The handleAddeventsubmit function is an async function that takes an event as a parameter. It
+   * prevents the default action of the event, and then it fetches the /api/events/ route, and sends a
+   * POST request with the addEvent object as the body
+   * @param event - the event object that is passed to the function
+   */
   const handleAddeventsubmit = async (event) => {
     event.preventDefault();
     const Event = await fetch('/api/events/', {
@@ -38,6 +50,8 @@ export default function EventPost() {
     window.location.reload();
   };
 
+  /* This is a hook that is fetching the data from the database and setting the state of the events to
+  the data that is fetched. */
   const [events, setEvents] = useState(null);
   useEffect(() => {
     const res = fetch('http://localhost:3000/api/events/')
@@ -49,6 +63,7 @@ export default function EventPost() {
 
   const [editeventid, setEditeventid] = useState<Number>(null);
 
+  /* Setting the state of the editEvent to an empty object. */
   const [editEvent, setEditEvent] = useState({
     title: '',
     start: '',
@@ -59,6 +74,11 @@ export default function EventPost() {
     belong_to: '',
   });
 
+  /**
+   * The function takes an event as an argument, prevents the default action, gets the name and value
+   * of the field, creates a new object with the spread operator, and sets the new object to the state
+   * @param event - the event object that was triggered
+   */
   const handleEditevent = (event) => {
     event.preventDefault();
 
@@ -71,6 +91,12 @@ export default function EventPost() {
     setEditEvent(newEvent);
   };
 
+  /**
+   * When the edit button is clicked, the event id is set to the event id of the event that was
+   * clicked, and the form values are set to the values of the event that was clicked
+   * @param event - The event that was clicked on
+   * @param {Getevent} Event - Getevent
+   */
   const handleEditClick = (event, Event: Getevent) => {
     event.preventDefault();
     setEditeventid(Event.id);
@@ -87,6 +113,11 @@ export default function EventPost() {
     setEditEvent(formValues);
   };
 
+  /**
+   * It takes the event id from the state, and then it fetches the event from the database, and then it
+   * updates the event with the new information from the state
+   * @param event - the event object that is being edited
+   */
   const handleEditsubmit = async (event) => {
     event.preventDefault();
     const Event = await fetch(`/api/events/${editeventid}`, {
@@ -108,6 +139,13 @@ export default function EventPost() {
     setEditeventid(null);
   };
 
+  /**
+   * The function is called when the delete button is clicked. It prevents the default action of the
+   * button, then it sends a request to the server to delete the event with the id of the event that
+   * was clicked
+   * @param event - the event that was triggered
+   * @param {Getevent} Event - Getevent
+   */
   const handleDeleteclick = async (event, Event: Getevent) => {
     event.preventDefault();
     console.log(Event.id);
@@ -115,6 +153,7 @@ export default function EventPost() {
     const res = await fetch(`/api/events/${Event.id}`, {
       method: 'DELETE',
     });
+    window.location.reload();
   };
 
   return (
@@ -178,8 +217,8 @@ export default function EventPost() {
         ></input>
         <input
           onChange={handleAddevent}
-          type="text"
           name="created_by"
+          type="text"
           placeholder="Enter a created by"
           className="mt-1 flex justify-center  px-3 py-2 bg-white border border-slate-300text-sm shadow-sm placeholder-slate-400
                           focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500

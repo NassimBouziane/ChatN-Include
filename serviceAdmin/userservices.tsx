@@ -51,6 +51,7 @@ export default function UserPost() {
 
   const [edituserid, setEdituserid] = useState<Number>(null);
 
+  /* This is a hook that is fetching the user from the database. */
   const [editUser, setEditUser] = useState({
     username: '',
     email: '',
@@ -58,6 +59,11 @@ export default function UserPost() {
     group_id: '',
   });
 
+  /**
+   * It takes the event, prevents the default action, gets the name and value of the field, creates a
+   * new object with the new data, and sets the state of the editUser to the new object
+   * @param event - The event object that is passed to the function.
+   */
   const handleEdituser = (event) => {
     event.preventDefault();
 
@@ -70,6 +76,13 @@ export default function UserPost() {
     setEditUser(newdata);
   };
 
+  /**
+   * The function takes an event and a user as parameters, prevents the default action of the event,
+   * sets the edituserid state to the user's id, and sets the editUser state to the user's username,
+   * email, role_id, and group_id
+   * @param event - The event that triggered the function.
+   * @param {Getuser} user - Getuser is the user object that is passed in from the user list.
+   */
   const handleEditClick = (event, user: Getuser) => {
     event.preventDefault();
     setEdituserid(user.id);
@@ -83,6 +96,10 @@ export default function UserPost() {
     setEditUser(formValues);
   };
 
+  /**
+   * It takes the user's input from the form and sends it to the server to update the database
+   * @param event - the event that triggered the function
+   */
   const handleEditsubmit = async (event) => {
     event.preventDefault();
     const user = await fetch(`/api/users/${edituserid}`, {
@@ -101,6 +118,12 @@ export default function UserPost() {
     setEdituserid(null);
   };
 
+  /**
+   * It takes an event and a user as parameters, prevents the default action of the event, logs the
+   * user's id, fetches the user's id from the database, and then reloads the page
+   * @param event - This is the event that is triggered when the button is clicked.
+   * @param {Getuser} user - Getuser is the type of the user object that we are passing in.
+   */
   const handleDeleteclick = async (event, user: Getuser) => {
     event.preventDefault();
     console.log(user.id);
@@ -108,6 +131,7 @@ export default function UserPost() {
     const User = await fetch(`/api/users/${user.id}`, {
       method: 'DELETE',
     });
+    window.location.reload();
   };
 
   return (
@@ -183,7 +207,7 @@ export default function UserPost() {
               <th>username</th>
               <th>email</th>
               <th>role_id</th>
-              <th>group_id</th>
+              <th>group</th>
               <th>Actions</th>
             </tr>
           </thead>

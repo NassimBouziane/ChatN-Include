@@ -1,9 +1,10 @@
 import { PrismaClient } from '@prisma/client';
+import { Group } from '../../../interfaces';
 
 const prisma = new PrismaClient();
 
 export default async function handler(req, res) {
-  const pid: number = Number(req.query.id);
+  const pid: number = JSON.parse(req.query.id);
   switch (req.method) {
     case 'DELETE': {
       const QueryResult = await prisma.groups.delete({
@@ -15,12 +16,13 @@ export default async function handler(req, res) {
 
       break; }
     case 'PUT': {
+      const data: Group = JSON.parse(req.body);
       const QueryResult = await prisma.groups.update({
         where: {
           id: pid,
         },
         data: {
-          name: req.body.name,
+          name: data.name,
         },
       });
       res.send(QueryResult);
