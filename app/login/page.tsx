@@ -25,7 +25,7 @@ export default function login() {
       document.location = '/messagerie';
     }
   }
-  useEffect(() => { window.location.reload;}, []);
+  useEffect(() => { window.location.reload; getData()}, []);
   return (
     <div className="grid grid-rows-3 gap-1">
       <div></div>
@@ -39,7 +39,7 @@ export default function login() {
         <div className="flex justify-center">
           <input
             ref={email}
-            onChange={getData}
+
             type="email"
             id="email"
             name="email"

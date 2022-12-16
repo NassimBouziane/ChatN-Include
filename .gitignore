@@ -40,3 +40,5 @@ next-env.d.ts
 styles/output.css
 src/public/*
 prisma/*.svg
+
+src/public/*

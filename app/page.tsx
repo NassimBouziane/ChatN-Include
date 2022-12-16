@@ -7,6 +7,7 @@ import '../styles/output.css';
 import { useEffect, useState } from 'react';
 import { getCookie } from 'typescript-cookie';
 import Button01 from '../components/button_01';
+import { Notifications } from 'react-push-notification';
 
 export default function Page() {
   const [link, setLink] = useState('');
@@ -23,6 +24,7 @@ export default function Page() {
   }, []);
   return (
     <div className="bg-white w-full h-screen grid grid-cols-2 gap-1 ">
+      <Notifications />
       <div className="grid grid-rows-3 w-full h-full">
         <div></div>
         <div className="text-[#A371D0] font-serif">

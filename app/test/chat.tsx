@@ -7,8 +7,9 @@ import Image from 'next/image';
 import Gif from '../../components/gif';
 import Avatar from '@mui/material/Avatar';
 import File from '../../components/file'
-import { setCookie } from 'typescript-cookie';
-import { saveAs } from 'file-saver';
+
+
+
 
 
 function Chat({ socket, username, room }) {
@@ -22,7 +23,6 @@ function Chat({ socket, username, room }) {
     let hash = 0;
     let i;
   
-    /* eslint-disable no-bitwise */
     for (i = 0; i < string.length; i += 1) {
       hash = string.charCodeAt(i) + ((hash << 5) - hash);
     }
@@ -33,7 +33,6 @@ function Chat({ socket, username, room }) {
       const value = (hash >> (i * 8)) & 0xff;
       color += `00${value.toString(16)}`.slice(-2);
     }
-    /* eslint-enable no-bitwise */
   
     return color;
   }
@@ -80,7 +79,7 @@ function Chat({ socket, username, room }) {
             created_at:messageData.created_at,
             content: messageData.content,
             belongs_to: messageData.belongs_to,
-            bodyFile: file.name, // idéee mettre le body de l'image en local storage :)
+            bodyFile: file.name,
             type: messageData.type,
           }),
         })
@@ -112,6 +111,16 @@ function Chat({ socket, username, room }) {
 
   useEffect(() => {
     socket.on('receive_message', (data) => {
+      Notification.requestPermission().then(perm =>{
+        if(perm ==="granted"){
+          
+    if(document.hidden){
+      
+          new Notification('Nouveau message recu'),{body:`${data.content}`,
+        tag:"Message Notification", image: "inclukathonlogo"}
+        }}
+    
+      })
       setMessageList((list) => [...list, data]);
     });
     const res = fetch(`http://localhost:3000/api/messages/${room}`, {
@@ -126,32 +135,15 @@ function Chat({ socket, username, room }) {
     setIsShown(false);
   };
   function upload(){
-    // const form = document.forms['uploadForm'];
-    // form.submit();
-    
-//     var formdata = new FormData();
-   
-//     var reader = new FileReader();
-// reader.readAsDataURL(hiddenFileInput.current.files[0]); 
-// reader.onloadend = function() {
-//   var base64data = reader.result;                
-//   formdata.append('sampleFile', hiddenFileInput.current.files[0]);
-//   fetch('http://localhost:3001/upload',{method:'POST', body: JSON.stringify({ img : hiddenFileInput.current.files[0]}) })
-//   console.log(formdata);
-// }
-
-
 const formData = new FormData();
 
 formData.append('sampleFile', hiddenFileInput.current.files[0]);
 
 fetch('http://localhost:3001/upload',{method:'POST', body: formData })
   }
+
   return (
     <div className="chat-window bg-white rounded-lg shadow-lg w-full  h-full">
-      {/* <div className="chat-header">
-        <p>GROUPE {room}</p>
-      </div> */}
       <div className="chat-body rounded-lg">
         <ScrollToBottom className="message-container pt-4">
           {messageList.map((messageContent) => ( 
@@ -211,7 +203,7 @@ fetch('http://localhost:3001/upload',{method:'POST', body: formData })
         <input className='hidden' type="file" name="sampleFile" ref={hiddenFileInput}  onChange={(event) => {upload(), selectFile(event)}} />
         <AiOutlinePaperClip ref={hiddenFileInput} onChange={selectFile} onClick={handleClick1} size={'30px'} />
     </form>  
-          <RiSendPlaneLine size={'30px'} onClick={sendMessage} /> 
+          <RiSendPlaneLine size={'30px'} onClick={() => {sendMessage()}} /> 
         </div>
       </div>
     </div>
