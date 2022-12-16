@@ -2,6 +2,12 @@ import React from 'react';
 import '../../styles/output.css';
 import '../../styles/input.css';
 
+/**
+ * It returns a table row with input fields for the user's name, email, role, and group, and buttons
+ * for saving and canceling the edit
+ * @param  - editUser: the user object that is being edited
+ * @returns A table row with a form to edit a user.
+ */
 export function EditableRow({ editUser, handleEdituser, handleCancelClick }) {
   return (
     <tr>
@@ -25,6 +31,10 @@ export function EditableRow({ editUser, handleEdituser, handleCancelClick }) {
   );
 }
 
+/**
+ * This function is used to edit the event
+ * @param  - editEvent: the event that is being edited
+ */
 export function EditEventableRow({ editEvent, handleEditevent, handleCancelClick }) {
   return (
     <tr>
@@ -48,6 +58,28 @@ export function EditEventableRow({ editEvent, handleEditevent, handleCancelClick
       </td>
       <td>
         <input type="text" placeholder="Enter a belong_to" name="belong_to" value={editEvent.belong_to} onChange={handleEditevent}></input>
+      </td>
+      <td>
+        <button type="submit" className='boutton rounded-lg w-8 h-fit'>Save</button>
+        <button type='submit'className='boutton rounded-lg w-14 h-fit'onClick={handleCancelClick}>Cancel</button>
+      </td>
+    </tr>
+  );
+}
+
+/**
+ * It returns a table row with two cells, the first cell contains an input field for the group name,
+ * the second cell contains two buttons, one for saving the group name and the other for cancelling the
+ * edit
+ * @param  - editGroup - the group that is being edited
+ * @returns A table row with two cells. The first cell contains an input field and the second cell
+ * contains two buttons.
+ */
+export function EditgrouptableRow({ editGroup, handleEditgroup, handleCancelClick }) {
+  return (
+    <tr>
+      <td>
+      <input type="text" placeholder="Enter a name" name="name" value={editGroup.name} onChange={handleEditgroup}></input>
       </td>
       <td>
         <button type="submit" className='boutton rounded-lg w-8 h-fit'>Save</button>

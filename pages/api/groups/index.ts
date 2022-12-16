@@ -1,4 +1,5 @@
 import { PrismaClient } from '@prisma/client';
+import { Group } from '../../../interfaces';
 
 const prisma = new PrismaClient();
 
@@ -10,10 +11,11 @@ export default async function handler(req, res) {
       break;
     }
     case 'POST': {
+      const data: Group = JSON.parse(req.body);
       const QueryResult = await prisma.groups.create({
         data: {
 
-          name: req.body.name,
+          name: data.name,
         },
       });
       res.send(QueryResult);

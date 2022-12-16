@@ -40,3 +40,8 @@ export interface Getevent {
   created_by: number,
   belong_to: string
 }
+
+export interface Group {
+  id: number,
+  name: string,
+}
