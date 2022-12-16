@@ -1,14 +1,3 @@
-// Code Camp Web SDCDWEB
-//
-// From 5 Dec 2022 To 15 Dec 2022
-//
-// @authors: Menut Paul, Bouziane Nassim, Fom Nenkam Samuella, Hoarau Jordan, Boustani Abdelqodousse
-//
-// Copyright (c) 2022 - ETNA
-//
-
-// I wont get through this one cause it's deprecated
-
 import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();

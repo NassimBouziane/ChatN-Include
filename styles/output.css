@@ -625,6 +625,14 @@ video {
   right: 4rem;
 }
 
+.top-0 {
+  top: 0px;
+}
+
+.left-0 {
+  left: 0px;
+}
+
 .z-0 {
   z-index: 0;
 }
@@ -737,6 +745,10 @@ video {
   margin-left: 0.75rem;
 }
 
+.ml-\[10\%\] {
+  margin-left: 10%;
+}
+
 .block {
   display: block;
 }
@@ -776,6 +788,10 @@ video {
 
 .h-14 {
   height: 3.5rem;
+}
+
+.h-12 {
+  height: 3rem;
 }
 
 .w-full {
@@ -825,6 +841,10 @@ video {
 
 .w-14 {
   width: 3.5rem;
+}
+
+.w-28 {
+  width: 7rem;
 }
 
 .flex-grow {
@@ -1146,6 +1166,11 @@ video {
   color: rgb(107 114 128 / var(--tw-text-opacity));
 }
 
+.text-black {
+  --tw-text-opacity: 1;
+  color: rgb(0 0 0 / var(--tw-text-opacity));
+}
+
 .placeholder-slate-400::-moz-placeholder {
   --tw-placeholder-opacity: 1;
   color: rgb(148 163 184 / var(--tw-placeholder-opacity));
@@ -1177,6 +1202,12 @@ video {
 .shadow-md {
   --tw-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
   --tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.shadow-xl {
+  --tw-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  --tw-shadow-colored: 0 20px 25px -5px var(--tw-shadow-color), 0 8px 10px -6px var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
@@ -1224,6 +1255,11 @@ video {
 .react-input-emoji--container{
   border: none;
   background-color: #f3f3f3;
+}
+
+.boutton{
+  background-color: #a371D0;
+  color: white;
 }
 
 .invalid\:border-pink-500:invalid {
@@ -1275,9 +1311,23 @@ video {
   flex-grow: 1;
 }
 
+.focus\:border-l-4:focus {
+  border-left-width: 4px;
+}
+
 .focus\:border-sky-500:focus {
   --tw-border-opacity: 1;
   border-color: rgb(14 165 233 / var(--tw-border-opacity));
+}
+
+.focus\:border-\[\#A371D0\]:focus {
+  --tw-border-opacity: 1;
+  border-color: rgb(163 113 208 / var(--tw-border-opacity));
+}
+
+.focus\:bg-\[\#ADB6FA\]:focus {
+  --tw-bg-opacity: 1;
+  background-color: rgb(173 182 250 / var(--tw-bg-opacity));
 }
 
 .focus\:outline-none:focus {

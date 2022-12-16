@@ -9,86 +9,51 @@
 //
 
 import { PrismaClient } from '@prisma/client';
+import { Getuser } from '../../../interfaces';
 
 const prisma = new PrismaClient();
 
-/**
- * This function Delete a user from the database using its ID.
- * @param {Object} Id
- * @returns {Promise}
- */
-async function deleteUser(Id) {
-  const QueryResult = await prisma.users.delete({
-    where: {
-      id: Id,
-    },
-  });
-  return QueryResult;
-}
-
-/**
- * This function Update a user in the database using its ID.
- * @param {number} Id
- * @param {Object} body
- * @returns {Promise}
- */
-async function updateUser(Id, body) {
-  const QueryResult = await prisma.users.update({
-    where: {
-      id: Id,
-    },
-    data: {
-      username: body.username,
-      email: body.email,
-      password: body.password,
-      role_id: body.role_id,
-      group_id: body.group_id,
-    },
-  });
-  return QueryResult;
-}
-
-/**
- * This function Get a user from the database using its ID.
- * @param {Object} Id
- * @returns {Promise}
-*/
-async function getUser(Id) {
-  const QueryResult = await prisma.users.findUnique({
-    where: {
-      id: Id,
-    },
-  });
-  return QueryResult;
-}
-
-/**
- * This function is responsible for handling HTTP requests to the /api/users/[id] endpoint.
- * It handles GET, PUT, DELETE requests, and calls the corresponding functions to handle each request.
- * @param {Object} req
- * @param {Object} res
- * @returns {Promise}
- */
 export default async function handler(req, res) {
-  const Id = Number(req.query.id);
+  const Id: number = JSON.parse(req.query.id);
   switch (req.method) {
     // Delete user
+
     case 'DELETE': {
-      const QueryResult = await deleteUser(Id);
+      const QueryResult = await prisma.users.delete({
+        where: {
+          id: Id,
+        },
+      });
       res.status(200).send('User deleted');
       break;
     }
 
     // Update user
     case 'PUT': {
-      const QueryResult = await updateUser(Id, req.body);
+      const data: Getuser = JSON.parse(req.body);
+      const QueryResult = await prisma.users.update({
+        where: {
+          id: Id,
+        },
+        data: {
+          username: data.username,
+          email: data.email,
+          password: data.password,
+          role_id: Number(data.role_id),
+          group_id: data.group_id,
+        },
+      });
       res.send(QueryResult);
       break;
     }
 
     // Get by ID
     case 'GET': {
-      const QueryResult = await getUser(Id);
+      const QueryResult = await prisma.users.findUnique({
+        where: {
+          id: Id,
+        },
+      });
       if (!QueryResult) {
         res.status(404).send('User not found');
       } else {

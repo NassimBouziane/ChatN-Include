@@ -8,64 +8,35 @@
 //
 
 import { PrismaClient } from '@prisma/client';
+import { Getuser } from '../../../interfaces';
 
 const bcrypt = require('bcrypt');
 
 const prisma = new PrismaClient();
 
-/**
- * This function Get a user from the database using its ID.
- * @param {Object} Id
- * @returns {Promise}
- */
-async function getUsers() {
-  return prisma.users.findMany();
-}
-
-/**
- * This function Create a user in the database.
- * @param {Object} data
- * @returns {Promise}
- */
-async function createUser(data) {
-  const hash = await bcrypt.hash(data.password, 10);
-  return prisma.users.create({
-    data: {
-      username: data.username,
-      email: data.email,
-      password: `${hash}`,
-      role_id: data.role_id,
-      group_id: data.group_id,
-    },
-  });
-}
-
-/**
- * This function is responsible for handling HTTP requests to the /api/users/ endpoint.
- * It handles GET and POST requests, and uses the respective functions to handle the requests.
- * @param {Object} req
- * @param {Object} res
-  */
 export default async function handler(req, res) {
   switch (req.method) {
     // GET all users
     case 'GET': {
-      const QueryResult = await getUsers();
-      res.send(QueryResult);
+      const QueryResult = await prisma.users.findMany();
+      res.json(QueryResult);
       break;
     }
 
     // Create new user
     case 'POST': {
-      const data = {
-        username: req.body.username,
-        email: req.body.email,
-        password: req.body.password,
-        role_id: req.body.role_id,
-        group_id: req.body.group_id,
-      };
+      const data: Getuser = JSON.parse(req.body);
       try {
-        const QueryResult = await createUser(data);
+        const hash = await bcrypt.hash(data.password, 10);
+        const QueryResult = await prisma.users.create({
+          data: {
+            username: data.username,
+            email: data.email,
+            password: `${hash}`,
+            role_id: Number(data.role_id),
+            group_id: data.group_id,
+          },
+        });
         res.status(200).send(QueryResult);
       } catch (error) {
         console.log(error);
