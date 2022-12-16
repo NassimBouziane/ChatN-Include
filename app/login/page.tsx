@@ -1,5 +1,6 @@
 'use client';
 
+import { get } from 'https';
 /* eslint-disable import/extensions */
 import { useRef, useEffect } from 'react';
 import { setCookie, getCookie } from 'typescript-cookie';
@@ -19,13 +20,15 @@ export default function login() {
       }),
     }).then((res) => res.json());
     await setCookie('token', res.token);
-    await setCookie('id', res.id)
-    await setCookie('group', res.group)
-    if (getCookie('token')) {
+    await setCookie('id', res.id);
+    await setCookie('group', res.group);
+    if (getCookie('token') && getCookie('group') === 'admin') {
+      document.location = '/admin';
+    } else if (getCookie('token')) {
       document.location = '/messagerie';
     }
   }
-  useEffect(() => { window.location.reload; getData()}, []);
+  useEffect(() => { window.location.reload; getData(); }, []);
   return (
     <div className="grid grid-rows-3 gap-1">
       <div></div>
