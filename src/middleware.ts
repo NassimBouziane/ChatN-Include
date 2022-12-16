@@ -5,14 +5,13 @@
 
 // // dotenv.config();
 
-
 // const bool = false;
 // export default function middleware(request: NextRequest) {
 //   //const jwt = require('jsonwebtoken'); // problem a cause de ca créer une fonction qui check si le token est bon du coup
 //   // const Authetificator = sessionStorage.getItem('token');
 //   // const Authetificator = getCookie('token');
 //   if (request.nextUrl.pathname.startsWith('/api/messages')) {
-//     // console.log(Authetificator,'1');  
+//     // console.log(Authetificator,'1');
 //     try {
 //       // const decoded = jwt.verify(Authetificator, process.env.JWT_SIGN_SECRET);
 //       // console.log(decoded);
