@@ -30,7 +30,7 @@ export default async function handler(req, res) {
           username: data.username,
           email: data.email,
           password: data.password,
-          role_id: data.role_id,
+          role_id: Number(data.role_id),
           group_id: data.group_id,
         },
       });

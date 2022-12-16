@@ -2,7 +2,7 @@ import React from 'react';
 import '../../styles/output.css';
 import '../../styles/input.css';
 
-export function EditableRow({ editUser , handleEdituser, handleCancelClick }) {
+export function EditableRow({ editUser, handleEdituser, handleCancelClick }) {
   return (
     <tr>
       <td>

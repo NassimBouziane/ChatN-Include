@@ -21,7 +21,7 @@ export default async function handler(req, res) {
           end: data.end,
           color: data.color,
           content: data.content,
-          created_by: data.created_by,
+          created_by: Number(data.created_by),
         },
       });
       res.send('Event Created');

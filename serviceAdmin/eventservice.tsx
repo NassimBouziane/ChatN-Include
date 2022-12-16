@@ -65,7 +65,7 @@ export default function EventPost() {
     const fieldName = event.target.getAttribute('name');
     const fieldValue = event.target.value;
 
-    const newEvent = { ...addEvent };
+    const newEvent = { ...editEvent };
     newEvent[fieldName] = fieldValue;
 
     setEditEvent(newEvent);
@@ -105,7 +105,7 @@ export default function EventPost() {
   };
 
   const handleCancelClick = () => {
-    setEditeventid(null)
+    setEditeventid(null);
   };
 
   const handleDeleteclick = async (event, Event: Getevent) => {
@@ -244,5 +244,5 @@ export default function EventPost() {
         </table>
       </form>
     </div>
-  )
+  );
 }
